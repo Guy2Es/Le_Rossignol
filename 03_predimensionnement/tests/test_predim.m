@@ -96,6 +96,7 @@ mot = constantes_moteur(980, "motX", p);
 E = cas_erreur(mot, [8 6], 0.8, 1.225, p);
 r = point_propulsif(mot, [8 6], 4, p.batt.V_plein, 1.225, 0, "gaz", 1, p);
 assert(abs(E(2).P - r.P_elec) < 1e-9 && E(1).P < E(2).P, 'erreur sans bridage = plein gaz');
+assert(abs(E(1).n_max - p.gp.k_rpm / 8) < 1e-9, 'régime max APC E = 150 000 / D');
 
 %% Budget réaffecté : le bilan boucle (masse = budget du cahier + écarts) et la structure cible tient 800 g
 mot = constantes_moteur(980, "motX", p);
@@ -105,6 +106,11 @@ bm = budget_masse(p);
 assert(abs(B.sans_batt - (bm.sans_batt + sum(B.postes.Ecart_g))) < 1e-9, 'sans batterie = cahier + écarts');
 assert(abs(B.gain - (-(sum(B.postes.Ecart_g) - gp.ecart))) < 1e-9, 'gain = écarts des postes du plan');
 assert(B.cible_4S_fiche <= p.masse.MTOW + 1e-9 && B.cible_sans_batt <= p.masse.max_sans_batt + 1e-9, 'la cible tient V1-MAS-01 et 02');
+% Cas pessimiste : chaque gramme de plus sur les pièces du plan sort du gain
+pH = p;  pH.allg.m = p.allg.m_haut;
+BH = budget_reaffecte(gp, pH);
+dm = sum(cellfun(@sum, p.allg.m_haut)) - sum(cellfun(@sum, p.allg.m));
+assert(abs((B.gain - BH.gain) - dm) < 1e-9 && abs((BH.total_4S_fiche - B.total_4S_fiche) - dm) < 1e-9, 'cas pessimiste du plan');
 
 %% Import xflr5 : une polaire parabolique écrite en CSV doit être relue sans écart
 aero = p.aero;

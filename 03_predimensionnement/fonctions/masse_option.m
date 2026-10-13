@@ -7,12 +7,12 @@ function [m, gp] = masse_option(mot, m_ns, p)
 %     p    : paramètres
 %   Sorties :
 %     m  : masses 3S1P et 4S1P de l'option [kg]
-%     gp : structure en grammes : moteur, pales, moyeu (moyeu + cône), total,
+%     gp : structure en grammes : moteur, pales (hélice), moyeu (adaptateur ou moyeu-cône), total,
 %          budget (poste du cahier), ecart (total − budget), sans_batt,
 %          m_ns (= 1000·m), m_ns_fiche (cellules à 70,0 g au lieu de 69 g)
 %
 %   Bilan : le poste « moteur + hélice repliable + cône » du budget (62 g)
-%   est remplacé par moteur (fiche) + pales + moyeu-cône (références réelles,
+%   est remplacé par moteur (fiche) + hélice + adaptateur (références réelles,
 %   params_v1, p.gp). Les autres postes du cahier sont inchangés.
 
 P = p.masse.postes;

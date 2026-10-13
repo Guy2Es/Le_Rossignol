@@ -12,10 +12,10 @@ function B = budget_reaffecte(gp, p)
 %     struct_max_4S : structure maximale pour 4S1P ≤ 800 g, cellules 70 g
 %     struct_max_sb : structure maximale pour V1-MAS-02 (≤ 520 g sans batterie)
 %     struct_cible  : min(V1-MAS-03, structures maximales), arrondie au gramme inférieur
-%     mod03         : vrai si la cible passe sous la valeur de V1-MAS-03
+%     baisse_mas03  : vrai si la cible passe sous la valeur de V1-MAS-03
 %
 %   Bilan : le poste « moteur + hélice + cône » (62 g) est remplacé par le
-%   groupe propulsif réel, et chaque poste de p.allg par la pièce relevée
+%   groupe propulsif réel (moteur + hélice + adaptateur), et chaque poste de p.allg par la pièce relevée
 %   (somme de ses composants). Les autres postes du cahier sont inchangés.
 %   Structure maximale : masse limite − systèmes réaffectés − batterie.
 
@@ -26,7 +26,7 @@ piece = repmat("cahier", size(P, 1), 1);
 % Groupe propulsif réel
 i = find(P(:, 1) == p.gp.poste, 1);
 m1(i) = gp.total;
-piece(i) = "groupe propulsif réel (moteur de fiche + pales + moyeu-cône)";
+piece(i) = "X2212 V3 + " + p.gp.nom_hel + " + " + p.gp.nom_moyeu;
 % Pièces du plan d'allègement
 for k = 1:size(p.allg.postes, 1)
     i = find(P(:, 1) == p.allg.postes(k, 1), 1);
@@ -53,7 +53,7 @@ B.total_4S_fiche = B.sans_batt + batt4_fiche;
 B.struct_max_4S = p.masse.MTOW - B.systemes - batt4_fiche;
 B.struct_max_sb = p.masse.max_sans_batt - B.systemes;
 B.struct_cible  = floor(min([p.masse.max_struct, B.struct_max_4S, B.struct_max_sb]));
-B.mod03 = B.struct_cible < p.masse.max_struct;
+B.baisse_mas03 = B.struct_cible < p.masse.max_struct;
 % Totaux à la structure cible
 B.cible_4S_fiche = B.struct_cible + B.systemes + batt4_fiche;
 B.cible_sans_batt = B.struct_cible + B.systemes;

@@ -1,4 +1,4 @@
-# Tableaux générés par dimensionnement.m (2026-10-13 10:49)
+# Tableaux générés par dimensionnement.m (2026-10-13 11:24)
 
 Ne pas éditer à la main : ce fichier est réécrit à chaque exécution.
 
@@ -6,19 +6,20 @@ Ne pas éditer à la main : ce fichier est réécrit à chaque exécution.
 
 | Exigence | Valeur calculée | Exigence (cahier) | Statut | Marge |
 | --- | --- | --- | --- | --- |
-| V1-MAS-01 | 4S1P : 814 g (cellules 69 g), 818 g (70 g) ; avec le plan d'allègement : 795,3 g, 799,3 g | ≤ 800 g | à risque | -18 g sans plan ; +0,7 g avec plan (cellules 70 g) |
-| V1-MAS-02 | Sans batterie : 526 g ; avec le plan : 507,3 g | ≤ 520 g | à risque | -6 g sans plan ; +12,7 g avec plan |
-| V1-MAS-03 | Structure du budget 320 g ; maximum admissible avec le plan 320,7 g (4S, cellules 70 g) ; cible 320 g | ≤ 320 g (souhaitable) | oui (budget) | +0 g sous la cible |
+| V1-MAS-01 | 4S1P : 811 g (cellules 69 g), 815 g (70 g) ; avec le plan d'allègement : 793,2 g, 797,2 g | ≤ 800 g | à risque | -15 g sans plan ; +2,8 g avec plan (cellules 70 g) ; -1,9 g, plan pessimiste (FC 19 g) |
+| V1-MAS-02 | Sans batterie : 523 g ; avec le plan : 505,2 g | ≤ 520 g | à risque | -3 g sans plan ; +14,8 g avec plan ; +10,1 g, plan pessimiste |
+| V1-MAS-03 | Structure du budget 320 g ; maximum admissible avec le plan 322,8 g (4S, cellules 70 g) ; cible 320 g (plan pessimiste : 318,1 g, cible 318 g) | ≤ 320 g (souhaitable) | oui (budget) | +0 g sous la cible |
 | V1-PERF-01 | Vs à 800 g = 28,8 km/h (ISA) ; 30,1 km/h TAS jour chaud (indépendant du moteur) | ≤ 32 km/h (cible 29) | oui | 1,9 km/h (pire cas) |
 | V1-PERF-02 | F : palier tenu de 45 à 60 km/h ; rapport cyclique à 45 / 60 km/h : 0,59 / 0,78 en 3S, 0,45 / 0,58 en 4S (THR_MAX 1,00 / 0,84) | 45 à 60 km/h | oui | d(60 km/h, 4S) = 0,69 × THR_MAX |
-| V1-PERF-03 | F, 4S1P à 55 km/h, η calculé 0,538 : 46 à 53 min (−30 / −20 %) ; CD0 0,035, −30 % : 43 min (G : 48 min) | ≥ 45 min | sous réserve (MOD-01) | +1,1 min (CD0 0,030, −30 %) ; -2,5 min (CD0 0,035) |
+| V1-PERF-03 | F, 4S1P à 55 km/h, η calculé 0,537 : 46 à 53 min (−30 / −20 %) ; CD0 0,035, −30 % : 43 min (G : 48 min) | ≥ 45 min | sous réserve (MOD-01 validée) | +1,1 min (CD0 0,030, −30 %) ; -2,4 min (CD0 0,035) |
 | V1-PERF-04 | F, 4S1P à 40 km/h, η calculé 0,537 : 79 à 91 min ; CD0 0,035, −30 % : 75 min | ≥ 70 min (souhaitable) | oui | +5 min (CD0 0,035, −30 %) |
 | V1-PERF-05 | F, 3S1P à 55 km/h, η calculé 0,531 : 35 à 40 min ; CD0 0,035, −30 % : 32 min | ≥ 30 min | oui | +2 min (CD0 0,035, −30 %) |
 | V1-PERF-06 | V_cr/V_vent = 2,75 ; V_sol face au vent = 35 km/h | ≥ 20 km/h (critère V_cr ≥ 2·V_vent) | oui | V_cr/V_vent − 2 = 0,75 |
-| V1-PERF-07 | F plein gaz (THR_MAX) à 1,3·Vs, masse réelle : 5,4 / 5,1 m/s en 3S, 6,7 / 6,4 m/s en 4S (ISA / jour chaud) | ≥ 3 m/s | oui | +2,1 m/s (pire) |
-| V1-PERF-08 | F, T/W statique : 0,76 / 0,70 en 3S, 0,86 / 0,80 en 4S (ISA / jour chaud) | ≥ 0,5 | oui | +0,20 (pire) |
-| V1-PROP-02 | F, P max batterie pleine : 145 W en 3S, 200 W en 4S (besoin au point de conception : 69 W) | 150 à 200 W | NON en 3S (MOD-02) | 3S : -5 W sous 150 W ; avec MOD-02 (140-200 W, T/W jour chaud ≥ 0,5) : conforme |
-| V1-PROP-03 | Pales CAM Carbon 8×6 / 7×6 et moyeu RFM : rotation droite (tractrice) ; pas de version propulsive trouvée | Propulsive repliable (souhaitable) | à risque | alternatives : aero-naut 8×5 propulsive (repliable) ou APC EP (rigide) |
+| V1-PERF-07 | F plein gaz (THR_MAX) à 1,3·Vs, masse réelle : 5,4 / 5,1 m/s en 3S, 6,8 / 6,4 m/s en 4S (ISA / jour chaud) | ≥ 3 m/s | oui | +2,1 m/s (pire) |
+| V1-PERF-08 | F, T/W statique : 0,76 / 0,71 en 3S, 0,86 / 0,80 en 4S (ISA / jour chaud) | ≥ 0,5 | oui | +0,21 (pire) |
+| V1-PROP-02 | F, P max batterie pleine : 145 W en 3S, 200 W en 4S (besoin au point de conception : 69 W) | 150 à 200 W ; MOD-02 : 140 à 200 W par batterie et T/W statique jour chaud ≥ 0,5 | oui (MOD-02 validée) | 3S : +5 W au-dessus de 140 W ; 4S : 0 W sous 200 W (bridage) ; T/W jour chaud +0,21 (pire) |
+| V1-PROP-03 | APC 8x6EP (rigide, propulsive) + adaptateur à pince 3,17 mm / M6 RC Dude CPA-317-N ; régime max 18750 tr/min (pire cas d'erreur : 13229 tr/min) | Propulsive repliable (souhaitable) ; MOD-03 : propulsive, rigide acceptée, coupure moteur avant le toucher, lot de 10 | oui (MOD-03 validée) | disque 102 mm sous l'axe : garde au sol à vérifier en phase 5 |
+| V1-PL-01 | Pi Zero 2 W + caméra, courants typiques (documentation Raspberry Pi) : 0,60 A, soit 3,00 W sous 5,0 V | ≤ 2,5 W (et ≤ 30 g) | à risque (mesure phase 6) | -0,50 W |
 
 
 ### Vérification des exigences — hypothèses du cahier (η = 0,5, budget du cahier), avant choix du moteur
@@ -246,15 +247,15 @@ Ne pas éditer à la main : ce fichier est réécrit à chaque exécution.
 
 | Rang | Option | Moteur | Hélice 3S / 4S | THR_MAX 3S / 4S | η 4S 40 / 4S 55 / 3S 55 km/h | V1-PERF-03 : 4S 55 km/h [min] | idem CD0 0,035, −30 % | V1-PERF-04 : 4S 40 km/h [min] | V1-PERF-05 : 3S 55 km/h [min] | T/W min ISA / jour chaud | P max 3S / 4S [W] | I max 3S / 4S [A] | Masse 4S [g] (marge 800 g) | Non tenu à −30 % (CD0 nominal) |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | C | 2212 920 KV | 8.5x5 / 7x6 | 1,00 / 1,00 | 0,605 / 0,641 / 0,396 | 54 à 61 | 49 | 87 à 100 | 27 à 31 | 0,71 / 0,66 | 133 / 174 | 11,2 / 10,9 (lim. 12) | 814 (-14 ; -18 cell. 70 g) | V1-PERF-05 |
-| 2 | G | X2212 980 KV | 8x6 / 7x6 | 1,00 / 0,99 | 0,578 / 0,621 / 0,531 | 52 à 60 | 48 | 84 à 96 | 35 à 40 | 0,76 / 0,70 | 145 / 200 | 12,2 / 12,7 (lim. 18) | 814 (-14 ; -18 cell. 70 g) | aucune |
-| 3 | A | 2212 1000 KV | 8x6 / 7x5 | 1,00 / 1,00 | 0,545 / 0,559 / 0,545 | 48 à 55 | 44 | 80 à 92 | 36 à 41 | 0,78 / 0,73 | 151 / 191 | 12,7 / 12,0 (lim. 13) | 814 (-14 ; -18 cell. 70 g) | aucune |
-| 4 | E-1260 | X2208 1260 KV | 8x6 / 8x6 | 0,80 / 0,59 | 0,562 / 0,540 / 0,535 | 46 à 53 | 43 | 83 à 95 | 35 à 40 | 0,63 / 0,59 | 130 / 130 | 13,5 / 13,5 (lim. 15) | 803 (-3 ; -7 cell. 70 g) | aucune |
-| 5 | E-1100 | X2208 1100 KV | 8x6 / 8x6 | 0,93 / 0,69 | 0,563 / 0,537 / 0,531 | 46 à 53 | 42 | 83 à 95 | 35 à 40 | 0,62 / 0,59 | 130 / 130 | 11,6 / 11,6 (lim. 14) | 803 (-3 ; -7 cell. 70 g) | aucune |
-| 6 | F | X2212 980 KV | 8x6 / 8x6 | 1,00 / 0,84 | 0,537 / 0,538 / 0,531 | 46 à 53 | 43 | 79 à 91 | 35 à 40 | 0,76 / 0,70 | 145 / 200 | 12,2 / 14,9 (lim. 18) | 814 (-14 ; -18 cell. 70 g) | aucune |
-| 7 | B | 2212 1000 KV | 8x5.5 / 7x4 | 1,00 / 1,00 | 0,463 / 0,453 / 0,500 | 40 à 45 | 37 | 70 à 80 | 33 à 38 | 0,76 / 0,70 | 144 / 167 | 12,1 / 10,5 (lim. 13) | 814 (-14 ; -18 cell. 70 g) | V1-PERF-03 |
-| 8 | F-8x5 | X2212 980 KV | 8x5 / 8x5 | 1,00 / 0,88 | 0,464 / 0,446 / 0,440 | 39 à 45 | 36 | 70 à 80 | 29 à 34 | 0,74 / 0,68 | 131 / 200 | 11,0 / 14,3 (lim. 18) | 814 (-14 ; -18 cell. 70 g) | V1-PERF-03, V1-PERF-05 |
-| 9 | E2 | 2208 hors cat. 800 KV | 9x7 / 8x4.5 | 1,00 / 1,00 | 0,439 / 0,393 / 0,488 | 35 à 40 | 33 | 68 à 77 | 33 à 37 | 0,60 / 0,57 | 102 / 128 | 8,5 / 7,9 (lim. 10) | 803 (-3 ; -7 cell. 70 g) | V1-PERF-03, V1-PERF-04 |
+| 1 | C | 2212 920 KV | 8.5x5 / 7x6 | 1,00 / 1,00 | 0,604 / 0,641 / 0,396 | 54 à 62 | 49 | 87 à 100 | 27 à 31 | 0,71 / 0,66 | 133 / 174 | 11,2 / 10,9 (lim. 12) | 811 (-11 ; -15 cell. 70 g) | V1-PERF-05 |
+| 2 | G | X2212 980 KV | 8x6 / 7x6 | 1,00 / 0,99 | 0,578 / 0,621 / 0,531 | 52 à 60 | 48 | 84 à 96 | 35 à 40 | 0,76 / 0,71 | 145 / 200 | 12,2 / 12,7 (lim. 18) | 811 (-11 ; -15 cell. 70 g) | aucune |
+| 3 | A | 2212 1000 KV | 8x6 / 7x5 | 1,00 / 1,00 | 0,545 / 0,559 / 0,545 | 48 à 55 | 44 | 80 à 92 | 36 à 41 | 0,78 / 0,73 | 151 / 191 | 12,7 / 12,0 (lim. 13) | 811 (-11 ; -15 cell. 70 g) | aucune |
+| 4 | E-1260 | X2208 1260 KV | 8x6 / 8x6 | 0,80 / 0,59 | 0,562 / 0,540 / 0,534 | 46 à 53 | 43 | 83 à 95 | 35 à 40 | 0,63 / 0,59 | 130 / 130 | 13,5 / 13,5 (lim. 15) | 800 (+0 ; -4 cell. 70 g) | aucune |
+| 5 | E-1100 | X2208 1100 KV | 8x6 / 8x6 | 0,93 / 0,69 | 0,563 / 0,536 / 0,531 | 46 à 53 | 42 | 83 à 95 | 35 à 40 | 0,62 / 0,59 | 130 / 130 | 11,6 / 11,6 (lim. 14) | 800 (+0 ; -4 cell. 70 g) | aucune |
+| 6 | F | X2212 980 KV | 8x6 / 8x6 | 1,00 / 0,84 | 0,537 / 0,537 / 0,531 | 46 à 53 | 43 | 79 à 91 | 35 à 40 | 0,76 / 0,71 | 145 / 200 | 12,2 / 14,9 (lim. 18) | 811 (-11 ; -15 cell. 70 g) | aucune |
+| 7 | B | 2212 1000 KV | 8x5.5 / 7x4 | 1,00 / 1,00 | 0,462 / 0,453 / 0,499 | 40 à 45 | 37 | 70 à 80 | 33 à 38 | 0,76 / 0,70 | 144 / 167 | 12,1 / 10,5 (lim. 13) | 811 (-11 ; -15 cell. 70 g) | V1-PERF-03 |
+| 8 | F-8x5 | X2212 980 KV | 8x5 / 8x5 | 1,00 / 0,88 | 0,463 / 0,446 / 0,440 | 39 à 45 | 36 | 70 à 80 | 30 à 34 | 0,74 / 0,69 | 131 / 200 | 11,0 / 14,3 (lim. 18) | 811 (-11 ; -15 cell. 70 g) | V1-PERF-03, V1-PERF-05 |
+| 9 | E2 | 2208 hors cat. 800 KV | 9x7 / 8x4.5 | 1,00 / 1,00 | 0,438 / 0,393 / 0,488 | 35 à 40 | 33 | 68 à 77 | 33 à 37 | 0,60 / 0,57 | 102 / 128 | 8,5 / 7,9 (lim. 10) | 800 (+0 ; -4 cell. 70 g) | V1-PERF-03, V1-PERF-04 |
 | — | η = 0,5 (cahier) | — | — | — | 0,5 / 0,5 / 0,5 | 43 à 50 | 39 | 76 à 87 | 33 à 38 | — | — | — | 796 (+4) | V1-PERF-03 |
 
 
@@ -262,12 +263,12 @@ Ne pas éditer à la main : ce fichier est réécrit à chaque exécution.
 
 | Option | Rang nominal | Rang k_JT bas / haut | η 4S 55 km/h bas / nominal / haut |
 | --- | --- | --- | --- |
-| C | 1 | 1 / 1 | 0,565 / 0,641 / 0,709 |
-| G | 2 | 2 / 2 | 0,549 / 0,621 / 0,685 |
+| C | 1 | 1 / 1 | 0,565 / 0,641 / 0,708 |
+| G | 2 | 2 / 2 | 0,548 / 0,621 / 0,685 |
 | A | 3 | 3 / 3 | 0,482 / 0,559 / 0,630 |
-| E-1260 | 4 | 5 / 4 | 0,455 / 0,540 / 0,621 |
-| E-1100 | 5 | 6 / 5 | 0,451 / 0,537 / 0,618 |
-| F | 6 | 4 / 6 | 0,457 / 0,538 / 0,614 |
+| E-1260 | 4 | 4 / 4 | 0,455 / 0,540 / 0,621 |
+| E-1100 | 5 | 6 / 5 | 0,451 / 0,536 / 0,618 |
+| F | 6 | 5 / 6 | 0,457 / 0,537 / 0,614 |
 | B | 7 | 7 / 7 | 0,379 / 0,453 / 0,524 |
 | F-8x5 | 8 | 8 / 8 | 0,370 / 0,446 / 0,520 |
 | E2 | 9 | 9 / 9 | 0,318 / 0,393 / 0,469 |
@@ -277,24 +278,24 @@ Ne pas éditer à la main : ce fichier est réécrit à chaque exécution.
 
 | Option | Batterie | Hélice | η hélice | η moteur | η ESC | η batterie | η global | Point de fonctionnement |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| C | 4S1P | 7x6 | 0,799 | 0,826 | 0,980 | 0,991 | 0,641 | 7822 tr/min, d = 0,62, I = 2,1 A |
-| C | 3S1P | 8.5x5 | 0,481 | 0,854 | 0,984 | 0,982 | 0,396 | 7676 tr/min, d = 0,84, I = 4,4 A |
-| G | 4S1P | 7x6 | 0,799 | 0,800 | 0,979 | 0,991 | 0,621 | 7822 tr/min, d = 0,59, I = 2,1 A |
-| G | 3S1P | 8x6 | 0,671 | 0,819 | 0,980 | 0,986 | 0,531 | 6976 tr/min, d = 0,71, I = 3,3 A |
-| A | 4S1P | 7x5 | 0,691 | 0,832 | 0,981 | 0,990 | 0,559 | 8739 tr/min, d = 0,64, I = 2,4 A |
-| A | 3S1P | 8x6 | 0,671 | 0,840 | 0,979 | 0,987 | 0,545 | 6976 tr/min, d = 0,70, I = 3,2 A |
-| E-1260 | 4S1P | 8x6 | 0,675 | 0,827 | 0,977 | 0,990 | 0,540 | 7003 tr/min, d = 0,44, I = 2,5 A |
-| E-1260 | 3S1P | 8x6 | 0,670 | 0,827 | 0,977 | 0,987 | 0,535 | 6971 tr/min, d = 0,59, I = 3,2 A |
-| E-1100 | 4S1P | 8x6 | 0,675 | 0,820 | 0,979 | 0,990 | 0,537 | 7003 tr/min, d = 0,51, I = 2,5 A |
-| E-1100 | 3S1P | 8x6 | 0,670 | 0,820 | 0,979 | 0,986 | 0,531 | 6971 tr/min, d = 0,68, I = 3,3 A |
-| F | 4S1P | 8x6 | 0,676 | 0,820 | 0,980 | 0,990 | 0,538 | 7008 tr/min, d = 0,53, I = 2,5 A |
-| F | 3S1P | 8x6 | 0,671 | 0,819 | 0,980 | 0,986 | 0,531 | 6976 tr/min, d = 0,71, I = 3,3 A |
-| B | 4S1P | 7x4 | 0,553 | 0,843 | 0,984 | 0,988 | 0,453 | 10143 tr/min, d = 0,74, I = 2,9 A |
-| B | 3S1P | 8x5.5 | 0,612 | 0,844 | 0,981 | 0,986 | 0,500 | 7409 tr/min, d = 0,74, I = 3,5 A |
-| F-8x5 | 4S1P | 8x5 | 0,554 | 0,831 | 0,983 | 0,988 | 0,446 | 7963 tr/min, d = 0,61, I = 3,0 A |
-| F-8x5 | 3S1P | 8x5 | 0,548 | 0,830 | 0,983 | 0,984 | 0,440 | 7933 tr/min, d = 0,81, I = 3,9 A |
-| E2 | 4S1P | 8x4.5 | 0,484 | 0,835 | 0,986 | 0,986 | 0,393 | 8604 tr/min, d = 0,86, I = 3,4 A |
-| E2 | 3S1P | 9x7 | 0,644 | 0,783 | 0,982 | 0,985 | 0,488 | 5788 tr/min, d = 0,83, I = 3,5 A |
+| C | 4S1P | 7x6 | 0,799 | 0,826 | 0,979 | 0,991 | 0,641 | 7820 tr/min, d = 0,62, I = 2,1 A |
+| C | 3S1P | 8.5x5 | 0,480 | 0,854 | 0,984 | 0,982 | 0,396 | 7675 tr/min, d = 0,84, I = 4,4 A |
+| G | 4S1P | 7x6 | 0,799 | 0,800 | 0,979 | 0,991 | 0,621 | 7820 tr/min, d = 0,58, I = 2,1 A |
+| G | 3S1P | 8x6 | 0,671 | 0,819 | 0,980 | 0,986 | 0,531 | 6975 tr/min, d = 0,71, I = 3,3 A |
+| A | 4S1P | 7x5 | 0,691 | 0,832 | 0,981 | 0,990 | 0,559 | 8737 tr/min, d = 0,64, I = 2,4 A |
+| A | 3S1P | 8x6 | 0,671 | 0,840 | 0,979 | 0,987 | 0,545 | 6975 tr/min, d = 0,70, I = 3,2 A |
+| E-1260 | 4S1P | 8x6 | 0,675 | 0,827 | 0,977 | 0,990 | 0,540 | 7001 tr/min, d = 0,44, I = 2,5 A |
+| E-1260 | 3S1P | 8x6 | 0,670 | 0,827 | 0,977 | 0,987 | 0,534 | 6970 tr/min, d = 0,59, I = 3,2 A |
+| E-1100 | 4S1P | 8x6 | 0,675 | 0,820 | 0,979 | 0,990 | 0,536 | 7001 tr/min, d = 0,51, I = 2,5 A |
+| E-1100 | 3S1P | 8x6 | 0,670 | 0,820 | 0,979 | 0,986 | 0,531 | 6970 tr/min, d = 0,68, I = 3,2 A |
+| F | 4S1P | 8x6 | 0,676 | 0,820 | 0,980 | 0,990 | 0,537 | 7007 tr/min, d = 0,53, I = 2,5 A |
+| F | 3S1P | 8x6 | 0,671 | 0,819 | 0,980 | 0,986 | 0,531 | 6975 tr/min, d = 0,71, I = 3,3 A |
+| B | 4S1P | 7x4 | 0,552 | 0,843 | 0,984 | 0,988 | 0,453 | 10141 tr/min, d = 0,74, I = 2,9 A |
+| B | 3S1P | 8x5.5 | 0,612 | 0,844 | 0,981 | 0,986 | 0,499 | 7407 tr/min, d = 0,74, I = 3,5 A |
+| F-8x5 | 4S1P | 8x5 | 0,553 | 0,831 | 0,983 | 0,988 | 0,446 | 7961 tr/min, d = 0,61, I = 3,0 A |
+| F-8x5 | 3S1P | 8x5 | 0,548 | 0,830 | 0,983 | 0,984 | 0,440 | 7932 tr/min, d = 0,81, I = 3,9 A |
+| E2 | 4S1P | 8x4.5 | 0,484 | 0,835 | 0,986 | 0,986 | 0,393 | 8603 tr/min, d = 0,86, I = 3,4 A |
+| E2 | 3S1P | 9x7 | 0,644 | 0,783 | 0,982 | 0,985 | 0,488 | 5787 tr/min, d = 0,83, I = 3,5 A |
 
 
 ### Bridage des gaz calculé (batterie pleine, point fixe, ISA)
@@ -318,64 +319,64 @@ Ne pas éditer à la main : ce fichier est réécrit à chaque exécution.
 | KV | Batterie | Hélice | I max [A] (lim.) | P plein [W] | T/W ISA / chaud | Valide |
 | --- | --- | --- | --- | --- | --- | --- |
 | 1100 | 3S1P | 8x4 | 10,5 (14) | 126 | 0,75 / 0,70 | oui |
-| 1100 | 3S1P | 8x4.5 | 11,1 (14) | 133 | 0,75 / 0,70 | non |
+| 1100 | 3S1P | 8x4.5 | 11,1 (14) | 133 | 0,75 / 0,71 | non |
 | 1100 | 3S1P | 8x5 | 11,7 (14) | 140 | 0,75 / 0,71 | non |
 | 1100 | 3S1P | 8x5.5 | 12,3 (14) | 146 | 0,75 / 0,71 | non |
-| 1100 | 3S1P | 8x6 | 12,8 (14) | 152 | 0,75 / 0,71 | non |
-| 1100 | 3S1P | 8.5x5 | 13,6 (14) | 161 | 0,85 / 0,81 | non |
-| 1100 | 3S1P | 8.5x6 | 14,8 (14) | 174 | 0,85 / 0,81 | non |
+| 1100 | 3S1P | 8x6 | 12,8 (14) | 152 | 0,76 / 0,71 | non |
+| 1100 | 3S1P | 8.5x5 | 13,6 (14) | 161 | 0,86 / 0,81 | non |
+| 1100 | 3S1P | 8.5x6 | 14,8 (14) | 174 | 0,86 / 0,81 | non |
 | 1100 | 3S1P | 9x5 | 15,6 (14) | 183 | 0,96 / 0,91 | non |
 | 1100 | 3S1P | 9x6 | 16,7 (14) | 196 | 0,95 / 0,90 | non |
-| 1100 | 3S1P | 9x7 | 17,8 (14) | 207 | 0,94 / 0,89 | non |
+| 1100 | 3S1P | 9x7 | 17,8 (14) | 207 | 0,94 / 0,90 | non |
 | 1100 | 4S1P | 8x4 | 16,3 (14) | 255 | 1,08 / 1,02 | non |
 | 1100 | 4S1P | 8x4.5 | 17,2 (14) | 267 | 1,08 / 1,02 | non |
-| 1100 | 4S1P | 8x5 | 18,0 (14) | 279 | 1,07 / 1,02 | non |
+| 1100 | 4S1P | 8x5 | 18,0 (14) | 279 | 1,08 / 1,02 | non |
 | 1100 | 4S1P | 8x5.5 | 18,7 (14) | 290 | 1,07 / 1,02 | non |
-| 1100 | 4S1P | 8x6 | 19,5 (14) | 300 | 1,07 / 1,01 | non |
-| 1100 | 4S1P | 8.5x5 | 20,6 (14) | 316 | 1,20 / 1,14 | non |
-| 1100 | 4S1P | 8.5x6 | 22,1 (14) | 338 | 1,19 / 1,13 | non |
+| 1100 | 4S1P | 8x6 | 19,5 (14) | 300 | 1,07 / 1,02 | non |
+| 1100 | 4S1P | 8.5x5 | 20,6 (14) | 316 | 1,21 / 1,15 | non |
+| 1100 | 4S1P | 8.5x6 | 22,1 (14) | 338 | 1,19 / 1,14 | non |
 | 1100 | 4S1P | 9x5 | 23,1 (14) | 352 | 1,33 / 1,27 | non |
-| 1100 | 4S1P | 9x6 | 24,7 (14) | 373 | 1,30 / 1,24 | non |
-| 1100 | 4S1P | 9x7 | 26,0 (14) | 392 | 1,28 / 1,22 | non |
+| 1100 | 4S1P | 9x6 | 24,7 (14) | 373 | 1,30 / 1,25 | non |
+| 1100 | 4S1P | 9x7 | 26,0 (14) | 392 | 1,28 / 1,23 | non |
 | 1260 | 3S1P | 8x4 | 15,4 (15) | 181 | 0,96 / 0,90 | non |
 | 1260 | 3S1P | 8x4.5 | 16,2 (15) | 190 | 0,96 / 0,90 | non |
-| 1260 | 3S1P | 8x5 | 17,1 (15) | 199 | 0,96 / 0,90 | non |
-| 1260 | 3S1P | 8x5.5 | 17,8 (15) | 208 | 0,96 / 0,90 | non |
+| 1260 | 3S1P | 8x5 | 17,1 (15) | 199 | 0,96 / 0,91 | non |
+| 1260 | 3S1P | 8x5.5 | 17,8 (15) | 208 | 0,96 / 0,91 | non |
 | 1260 | 3S1P | 8x6 | 18,6 (15) | 216 | 0,96 / 0,91 | non |
 | 1260 | 3S1P | 8.5x5 | 19,8 (15) | 229 | 1,09 / 1,03 | non |
-| 1260 | 3S1P | 8.5x6 | 21,4 (15) | 246 | 1,08 / 1,03 | non |
-| 1260 | 3S1P | 9x5 | 22,5 (15) | 257 | 1,21 / 1,15 | non |
+| 1260 | 3S1P | 8.5x6 | 21,4 (15) | 246 | 1,09 / 1,03 | non |
+| 1260 | 3S1P | 9x5 | 22,5 (15) | 257 | 1,22 / 1,16 | non |
 | 1260 | 3S1P | 9x6 | 24,1 (15) | 274 | 1,20 / 1,14 | non |
-| 1260 | 3S1P | 9x7 | 25,6 (15) | 289 | 1,18 / 1,13 | non |
-| 1260 | 4S1P | 8x4 | 23,5 (15) | 356 | 1,36 / 1,29 | non |
+| 1260 | 3S1P | 9x7 | 25,6 (15) | 289 | 1,19 / 1,13 | non |
+| 1260 | 4S1P | 8x4 | 23,5 (15) | 356 | 1,37 / 1,30 | non |
 | 1260 | 4S1P | 8x4.5 | 24,7 (15) | 373 | 1,36 / 1,29 | non |
-| 1260 | 4S1P | 8x5 | 25,8 (15) | 388 | 1,35 / 1,28 | non |
+| 1260 | 4S1P | 8x5 | 25,8 (15) | 388 | 1,36 / 1,29 | non |
 | 1260 | 4S1P | 8x5.5 | 26,8 (15) | 402 | 1,35 / 1,28 | non |
-| 1260 | 4S1P | 8x6 | 27,8 (15) | 416 | 1,34 / 1,27 | non |
+| 1260 | 4S1P | 8x6 | 27,8 (15) | 416 | 1,35 / 1,28 | non |
 | 1260 | 4S1P | 8.5x5 | 29,4 (15) | 436 | 1,51 / 1,44 | non |
-| 1260 | 4S1P | 8.5x6 | 31,5 (15) | 463 | 1,48 / 1,42 | non |
-| 1260 | 4S1P | 9x5 | 32,9 (15) | 481 | 1,65 / 1,58 | non |
-| 1260 | 4S1P | 9x6 | 35,0 (15) | 508 | 1,61 / 1,55 | non |
-| 1260 | 4S1P | 9x7 | 36,9 (15) | 530 | 1,58 / 1,52 | non |
-| 1500 | 3S1P | 8x4 | 22,6 (16) | 258 | 1,19 / 1,12 | non |
+| 1260 | 4S1P | 8.5x6 | 31,5 (15) | 463 | 1,49 / 1,42 | non |
+| 1260 | 4S1P | 9x5 | 32,9 (15) | 481 | 1,66 / 1,59 | non |
+| 1260 | 4S1P | 9x6 | 35,0 (15) | 508 | 1,62 / 1,55 | non |
+| 1260 | 4S1P | 9x7 | 36,9 (15) | 530 | 1,59 / 1,53 | non |
+| 1500 | 3S1P | 8x4 | 22,6 (16) | 258 | 1,19 / 1,13 | non |
 | 1500 | 3S1P | 8x4.5 | 23,7 (16) | 270 | 1,18 / 1,12 | non |
-| 1500 | 3S1P | 8x5 | 24,8 (16) | 281 | 1,17 / 1,11 | non |
-| 1500 | 3S1P | 8x5.5 | 25,8 (16) | 291 | 1,17 / 1,11 | non |
+| 1500 | 3S1P | 8x5 | 24,8 (16) | 281 | 1,18 / 1,12 | non |
+| 1500 | 3S1P | 8x5.5 | 25,8 (16) | 291 | 1,17 / 1,12 | non |
 | 1500 | 3S1P | 8x6 | 26,7 (16) | 301 | 1,17 / 1,11 | non |
-| 1500 | 3S1P | 8.5x5 | 28,2 (16) | 316 | 1,31 / 1,25 | non |
-| 1500 | 3S1P | 8.5x6 | 30,2 (16) | 335 | 1,29 / 1,23 | non |
+| 1500 | 3S1P | 8.5x5 | 28,2 (16) | 316 | 1,32 / 1,25 | non |
+| 1500 | 3S1P | 8.5x6 | 30,2 (16) | 335 | 1,30 / 1,24 | non |
 | 1500 | 3S1P | 9x5 | 31,6 (16) | 348 | 1,44 / 1,38 | non |
-| 1500 | 3S1P | 9x6 | 33,6 (16) | 367 | 1,40 / 1,35 | non |
-| 1500 | 3S1P | 9x7 | 35,4 (16) | 384 | 1,38 / 1,32 | non |
-| 1500 | 4S1P | 8x4 | 33,4 (16) | 487 | 1,64 / 1,56 | non |
-| 1500 | 4S1P | 8x4.5 | 34,9 (16) | 506 | 1,62 / 1,55 | non |
-| 1500 | 4S1P | 8x5 | 36,3 (16) | 523 | 1,60 / 1,53 | non |
-| 1500 | 4S1P | 8x5.5 | 37,5 (16) | 539 | 1,59 / 1,52 | non |
+| 1500 | 3S1P | 9x6 | 33,6 (16) | 367 | 1,41 / 1,35 | non |
+| 1500 | 3S1P | 9x7 | 35,4 (16) | 384 | 1,38 / 1,33 | non |
+| 1500 | 4S1P | 8x4 | 33,4 (16) | 487 | 1,65 / 1,57 | non |
+| 1500 | 4S1P | 8x4.5 | 34,9 (16) | 506 | 1,63 / 1,55 | non |
+| 1500 | 4S1P | 8x5 | 36,3 (16) | 523 | 1,61 / 1,54 | non |
+| 1500 | 4S1P | 8x5.5 | 37,5 (16) | 539 | 1,60 / 1,53 | non |
 | 1500 | 4S1P | 8x6 | 38,8 (16) | 553 | 1,58 / 1,51 | non |
-| 1500 | 4S1P | 8.5x5 | 40,6 (16) | 575 | 1,76 / 1,69 | non |
-| 1500 | 4S1P | 8.5x6 | 43,1 (16) | 604 | 1,71 / 1,65 | non |
-| 1500 | 4S1P | 9x5 | 44,8 (16) | 623 | 1,90 / 1,83 | non |
-| 1500 | 4S1P | 9x6 | 47,2 (16) | 650 | 1,84 / 1,77 | non |
+| 1500 | 4S1P | 8.5x5 | 40,6 (16) | 575 | 1,77 / 1,69 | non |
+| 1500 | 4S1P | 8.5x6 | 43,1 (16) | 604 | 1,72 / 1,65 | non |
+| 1500 | 4S1P | 9x5 | 44,8 (16) | 623 | 1,91 / 1,83 | non |
+| 1500 | 4S1P | 9x6 | 47,2 (16) | 650 | 1,84 / 1,78 | non |
 | 1500 | 4S1P | 9x7 | 49,3 (16) | 673 | 1,79 / 1,73 | non |
 
 
@@ -383,14 +384,14 @@ Ne pas éditer à la main : ce fichier est réécrit à chaque exécution.
 
 | KV | Hélice | THR_MAX (bridage) | P max [W] | I max [A] | T/W ISA / chaud | η 55 km/h | d croisière |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1260 | 8x6 | 0,80 (puissance) | 130 | 13,5 | 0,69 / 0,65 | 0,535 | 0,59 |
+| 1260 | 8x6 | 0,80 (puissance) | 130 | 13,5 | 0,69 / 0,65 | 0,534 | 0,59 |
 | 1100 | 8x6 | 0,93 (puissance) | 130 | 11,6 | 0,68 / 0,64 | 0,531 | 0,68 |
 | 1500 | 8x6 | 0,68 (puissance) | 130 | 15,9 | 0,67 / 0,63 | 0,507 | 0,50 |
 | 1260 | 9x7 | 0,67 (courant) | 121 | 15,0 | 0,68 / 0,64 | 0,494 | 0,51 |
-| 1260 | 8x5.5 | 0,82 (puissance) | 130 | 13,3 | 0,70 / 0,66 | 0,490 | 0,62 |
+| 1260 | 8x5.5 | 0,82 (puissance) | 130 | 13,3 | 0,71 / 0,66 | 0,490 | 0,62 |
 | 1100 | 8x5.5 | 0,95 (puissance) | 130 | 11,4 | 0,70 / 0,66 | 0,487 | 0,72 |
 | 1100 | 9x7 | 0,81 (puissance) | 130 | 13,4 | 0,70 / 0,66 | 0,486 | 0,60 |
-| 1260 | 8.5x6 | 0,75 (puissance) | 130 | 14,4 | 0,71 / 0,67 | 0,475 | 0,58 |
+| 1260 | 8.5x6 | 0,75 (puissance) | 130 | 14,4 | 0,72 / 0,68 | 0,474 | 0,58 |
 
 
 ### Choix de l'hélice sur le η à 55 km/h — E, 4S1P (8 meilleures combinaisons valides)
@@ -398,26 +399,26 @@ Ne pas éditer à la main : ce fichier est réécrit à chaque exécution.
 | KV | Hélice | THR_MAX (bridage) | P max [W] | I max [A] | T/W ISA / chaud | η 55 km/h | d croisière |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1260 | 8x6 | 0,59 (puissance) | 130 | 13,5 | 0,63 / 0,59 | 0,540 | 0,44 |
-| 1100 | 8x6 | 0,69 (puissance) | 130 | 11,6 | 0,62 / 0,59 | 0,537 | 0,51 |
-| 1500 | 8x6 | 0,50 (puissance) | 130 | 15,9 | 0,61 / 0,58 | 0,513 | 0,38 |
-| 1260 | 9x7 | 0,50 (courant) | 121 | 15,0 | 0,62 / 0,58 | 0,500 | 0,39 |
-| 1260 | 8x5.5 | 0,61 (puissance) | 130 | 13,3 | 0,64 / 0,60 | 0,496 | 0,47 |
+| 1100 | 8x6 | 0,69 (puissance) | 130 | 11,6 | 0,62 / 0,59 | 0,536 | 0,51 |
+| 1500 | 8x6 | 0,50 (puissance) | 130 | 15,9 | 0,62 / 0,58 | 0,512 | 0,38 |
+| 1260 | 9x7 | 0,50 (courant) | 121 | 15,0 | 0,62 / 0,59 | 0,500 | 0,39 |
+| 1260 | 8x5.5 | 0,61 (puissance) | 130 | 13,3 | 0,65 / 0,61 | 0,496 | 0,47 |
 | 1100 | 8x5.5 | 0,71 (puissance) | 130 | 11,4 | 0,64 / 0,60 | 0,493 | 0,54 |
-| 1100 | 9x7 | 0,60 (puissance) | 130 | 13,4 | 0,64 / 0,60 | 0,492 | 0,45 |
-| 1260 | 8.5x6 | 0,56 (puissance) | 130 | 14,4 | 0,65 / 0,62 | 0,481 | 0,43 |
+| 1100 | 9x7 | 0,60 (puissance) | 130 | 13,4 | 0,64 / 0,61 | 0,492 | 0,45 |
+| 1260 | 8.5x6 | 0,56 (puissance) | 130 | 14,4 | 0,66 / 0,62 | 0,480 | 0,43 |
 
 
 ### Choix de l'hélice sur le η à 55 km/h — E2, 3S1P (8 meilleures combinaisons valides)
 
 | KV | Hélice | THR_MAX (bridage) | P max [W] | I max [A] | T/W ISA / chaud | η 55 km/h | d croisière |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 950 | 8x6 | 1,00 (aucune) | 108 | 9,0 | 0,60 / 0,57 | 0,532 | 0,79 |
-| 1000 | 8x6 | 1,00 (aucune) | 122 | 10,2 | 0,65 / 0,61 | 0,532 | 0,75 |
+| 950 | 8x6 | 1,00 (aucune) | 108 | 9,0 | 0,61 / 0,57 | 0,532 | 0,79 |
+| 1000 | 8x6 | 1,00 (aucune) | 122 | 10,2 | 0,66 / 0,62 | 0,532 | 0,75 |
 | 800 | 9x7 | 1,00 (aucune) | 102 | 8,5 | 0,60 / 0,57 | 0,488 | 0,83 |
 | 850 | 9x7 | 1,00 (aucune) | 118 | 9,8 | 0,66 / 0,62 | 0,488 | 0,78 |
-| 950 | 8x5.5 | 1,00 (aucune) | 103 | 8,6 | 0,60 / 0,56 | 0,488 | 0,84 |
-| 1000 | 8x5.5 | 1,00 (aucune) | 117 | 9,7 | 0,65 / 0,61 | 0,488 | 0,80 |
-| 900 | 8.5x6 | 1,00 (aucune) | 110 | 9,2 | 0,63 / 0,60 | 0,471 | 0,82 |
+| 950 | 8x5.5 | 1,00 (aucune) | 103 | 8,6 | 0,60 / 0,57 | 0,488 | 0,84 |
+| 1000 | 8x5.5 | 1,00 (aucune) | 117 | 9,7 | 0,65 / 0,61 | 0,487 | 0,80 |
+| 900 | 8.5x6 | 1,00 (aucune) | 110 | 9,2 | 0,64 / 0,60 | 0,470 | 0,82 |
 | 950 | 8.5x6 | 1,00 (aucune) | 125 | 10,4 | 0,69 / 0,65 | 0,470 | 0,78 |
 
 
@@ -426,40 +427,40 @@ Ne pas éditer à la main : ce fichier est réécrit à chaque exécution.
 | KV | Hélice | THR_MAX (bridage) | P max [W] | I max [A] | T/W ISA / chaud | η 55 km/h | d croisière |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | 700 | 8x6 | 1,00 (aucune) | 106 | 6,6 | 0,55 / 0,51 | 0,539 | 0,80 |
-| 750 | 8x6 | 1,00 (aucune) | 126 | 7,8 | 0,61 / 0,57 | 0,538 | 0,75 |
+| 750 | 8x6 | 1,00 (aucune) | 126 | 7,8 | 0,61 / 0,58 | 0,538 | 0,75 |
 | 650 | 9x7 | 1,00 (aucune) | 127 | 7,8 | 0,63 / 0,60 | 0,495 | 0,76 |
 | 700 | 8x5.5 | 1,00 (aucune) | 102 | 6,3 | 0,54 / 0,51 | 0,495 | 0,85 |
-| 750 | 8x5.5 | 1,00 (aucune) | 120 | 7,4 | 0,61 / 0,57 | 0,495 | 0,79 |
-| 650 | 8.5x6 | 1,00 (aucune) | 103 | 6,4 | 0,56 / 0,52 | 0,478 | 0,85 |
+| 750 | 8x5.5 | 1,00 (aucune) | 120 | 7,4 | 0,61 / 0,57 | 0,494 | 0,79 |
+| 650 | 8.5x6 | 1,00 (aucune) | 103 | 6,4 | 0,56 / 0,53 | 0,477 | 0,85 |
 | 700 | 8.5x6 | 1,00 (aucune) | 123 | 7,7 | 0,63 / 0,59 | 0,477 | 0,79 |
-| 750 | 8x5 | 1,00 (aucune) | 115 | 7,1 | 0,60 / 0,57 | 0,446 | 0,85 |
+| 750 | 8x5 | 1,00 (aucune) | 115 | 7,1 | 0,61 / 0,57 | 0,446 | 0,85 |
 
 
-### Groupe propulsif explicite (pales CAM Carbon 8×6 9 g + moyeu-cône RFM Ø 30 mm 14 g) et masses — budget du cahier : 62 g
+### Groupe propulsif explicite (APC 8x6EP (rigide, propulsive) 13,9 g + adaptateur à pince 3,17 mm / M6 RC Dude CPA-317-N 6,0 g) et masses — budget du cahier : 62 g
 
-| Option | Moteur | Moteur (fiche) [g] | Pales + moyeu-cône [g] | Groupe propulsif [g] (écart au budget) | 4S1P, cellules 69 g [g] (marge 800 g) | 4S1P, cellules 70 g [g] (marge) | Sans batterie [g] (marge 520 g, V1-MAS-02) | 3S1P [g] (marge) |
+| Option | Moteur | Moteur (fiche) [g] | Hélice + adaptateur [g] | Groupe propulsif [g] (écart au budget) | 4S1P, cellules 69 g [g] (marge 800 g) | 4S1P, cellules 70 g [g] (marge) | Sans batterie [g] (marge 520 g, V1-MAS-02) | 3S1P [g] (marge) |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| C | 2212 920 KV | 57 | 9 + 14 | 80 (+18) | 814 (-14) | 818 (-18) | 526 (-6) | 746 (+54) |
-| G | X2212 980 KV | 57 | 9 + 14 | 80 (+18) | 814 (-14) | 818 (-18) | 526 (-6) | 746 (+54) |
-| A | 2212 1000 KV | 57 | 9 + 14 | 80 (+18) | 814 (-14) | 818 (-18) | 526 (-6) | 746 (+54) |
-| E-1260 | X2208 1260 KV | 46 | 9 + 14 | 69 (+7) | 803 (-3) | 807 (-7) | 515 (+5) | 735 (+65) |
-| E-1100 | X2208 1100 KV | 46 | 9 + 14 | 69 (+7) | 803 (-3) | 807 (-7) | 515 (+5) | 735 (+65) |
-| F | X2212 980 KV | 57 | 9 + 14 | 80 (+18) | 814 (-14) | 818 (-18) | 526 (-6) | 746 (+54) |
-| B | 2212 1000 KV | 57 | 9 + 14 | 80 (+18) | 814 (-14) | 818 (-18) | 526 (-6) | 746 (+54) |
-| F-8x5 | X2212 980 KV | 57 | 9 + 14 | 80 (+18) | 814 (-14) | 818 (-18) | 526 (-6) | 746 (+54) |
-| E2 | 2208 hors cat. 800 KV | 46 | 9 + 14 | 69 (+7) | 803 (-3) | 807 (-7) | 515 (+5) | 735 (+65) |
+| C | 2212 920 KV | 57 | 14 + 6 | 77 (+15) | 811 (-11) | 815 (-15) | 523 (-3) | 743 (+57) |
+| G | X2212 980 KV | 57 | 14 + 6 | 77 (+15) | 811 (-11) | 815 (-15) | 523 (-3) | 743 (+57) |
+| A | 2212 1000 KV | 57 | 14 + 6 | 77 (+15) | 811 (-11) | 815 (-15) | 523 (-3) | 743 (+57) |
+| E-1260 | X2208 1260 KV | 46 | 14 + 6 | 66 (+4) | 800 (+0) | 804 (-4) | 512 (+8) | 732 (+68) |
+| E-1100 | X2208 1100 KV | 46 | 14 + 6 | 66 (+4) | 800 (+0) | 804 (-4) | 512 (+8) | 732 (+68) |
+| F | X2212 980 KV | 57 | 14 + 6 | 77 (+15) | 811 (-11) | 815 (-15) | 523 (-3) | 743 (+57) |
+| B | 2212 1000 KV | 57 | 14 + 6 | 77 (+15) | 811 (-11) | 815 (-15) | 523 (-3) | 743 (+57) |
+| F-8x5 | X2212 980 KV | 57 | 14 + 6 | 77 (+15) | 811 (-11) | 815 (-15) | 523 (-3) | 743 (+57) |
+| E2 | 2208 hors cat. 800 KV | 46 | 14 + 6 | 66 (+4) | 800 (+0) | 804 (-4) | 512 (+8) | 732 (+68) |
 
 
 ### Erreur humaine : batterie 4S1P avec le fichier 3S ou sans bridage (batterie pleine 4,15 V/cellule, point fixe, ISA)
 
-| Option | Cas | P batterie [W] | I batterie [A] | I moteur = I ESC [A] | Moteur : référence continue / courte durée | ESC ; cellule P45B | Régime [tr/min] (pales) | Sous la référence continue | Survit 10 s plein gaz |
+| Option | Cas | P batterie [W] | I batterie [A] | I moteur = I ESC [A] | Moteur : référence continue / courte durée | ESC ; cellule P45B | Régime [tr/min] (régime max APC E) | Sous la référence continue | Survit 10 s plein gaz |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| F | 4S1P avec le fichier 3S (THR_MAX 1,00) | 296 (fiche 385) | 19,2 | 19,1 | 18,4 A (continu) / 26 A (30 s) | 64 % de 30 A ; 43 % de 45 A | 13229 (83 % de 16000) | non (1,04×) | oui |
-| F | 4S1P sans bridage (THR_MAX 1) | 296 (fiche 385) | 19,2 | 19,1 | 18,4 A (continu) / 26 A (30 s) | 64 % de 30 A ; 43 % de 45 A | 13229 (83 % de 16000) | non (1,04×) | oui |
-| E-1260 | 4S1P avec le fichier 3S (THR_MAX 0,80) | 261 (fiche 168) | 16,7 | 20,9 | 13,9 A (essai de fiche, durée non publiée) / 15 A (30 s) | 70 % de 30 A ; 37 % de 45 A | 12262 (77 % de 16000) | non (1,50×) | non |
-| E-1260 | 4S1P sans bridage (THR_MAX 1) | 416 (fiche 168) | 27,8 | 27,8 | 13,9 A (essai de fiche, durée non publiée) / 15 A (30 s) | 93 % de 30 A ; 62 % de 45 A | 14187 (89 % de 16000) | non (2,00×) | non |
-| E-1100 | 4S1P avec le fichier 3S (THR_MAX 0,93) | 260 (fiche 205) | 16,6 | 17,8 | 13,0 A (essai de fiche, durée non publiée) / 14 A (15 s) | 59 % de 30 A ; 37 % de 45 A | 12120 (76 % de 16000) | non (1,37×) | non |
-| E-1100 | 4S1P sans bridage (THR_MAX 1) | 300 (fiche 205) | 19,5 | 19,4 | 13,0 A (essai de fiche, durée non publiée) / 14 A (15 s) | 65 % de 30 A ; 43 % de 45 A | 12683 (79 % de 16000) | non (1,49×) | non |
+| F | 4S1P avec le fichier 3S (THR_MAX 1,00) | 296 (fiche 385) | 19,2 | 19,1 | 18,4 A (continu) / 26 A (30 s) | 64 % de 30 A ; 43 % de 45 A | 13229 (71 % de 18750) | non (1,04×) | oui |
+| F | 4S1P sans bridage (THR_MAX 1) | 296 (fiche 385) | 19,2 | 19,1 | 18,4 A (continu) / 26 A (30 s) | 64 % de 30 A ; 43 % de 45 A | 13229 (71 % de 18750) | non (1,04×) | oui |
+| E-1260 | 4S1P avec le fichier 3S (THR_MAX 0,80) | 261 (fiche 168) | 16,7 | 20,9 | 13,9 A (essai de fiche, durée non publiée) / 15 A (30 s) | 70 % de 30 A ; 37 % de 45 A | 12262 (65 % de 18750) | non (1,50×) | non |
+| E-1260 | 4S1P sans bridage (THR_MAX 1) | 416 (fiche 168) | 27,8 | 27,8 | 13,9 A (essai de fiche, durée non publiée) / 15 A (30 s) | 93 % de 30 A ; 62 % de 45 A | 14187 (76 % de 18750) | non (2,00×) | non |
+| E-1100 | 4S1P avec le fichier 3S (THR_MAX 0,93) | 260 (fiche 205) | 16,6 | 17,8 | 13,0 A (essai de fiche, durée non publiée) / 14 A (15 s) | 59 % de 30 A ; 37 % de 45 A | 12120 (65 % de 18750) | non (1,37×) | non |
+| E-1100 | 4S1P sans bridage (THR_MAX 1) | 300 (fiche 205) | 19,5 | 19,4 | 13,0 A (essai de fiche, durée non publiée) / 14 A (15 s) | 65 % de 30 A ; 43 % de 45 A | 12683 (68 % de 18750) | non (1,49×) | non |
 
 
 ### Comparaison côte à côte F / E-1260 / E-1100 (ISA, CD0 0,030, masse avec groupe propulsif réel, cellules 69 g)
@@ -468,31 +469,31 @@ Ne pas éditer à la main : ce fichier est réécrit à chaque exécution.
 | --- | --- | --- | --- |
 | Moteur, hélice 3S / 4S | X2212 980 KV, 8x6 / 8x6 | X2208 1260 KV, 8x6 / 8x6 | X2208 1100 KV, 8x6 / 8x6 |
 | THR_MAX 3S / 4S (limite active) | 1,00 (aucune) / 0,84 (puissance) | 0,80 (puissance) / 0,59 (puissance) | 0,93 (puissance) / 0,69 (puissance) |
-| Groupe propulsif [g] (budget 62 g) | 80 (+18) | 69 (+7) | 69 (+7) |
-| Masse 4S1P, cellules 69 g (marge 800 g) | 814 (-14) | 803 (-3) | 803 (-3) |
-| Masse 4S1P, cellules 70 g (marge) | 818 (-18) | 807 (-7) | 807 (-7) |
-| Sans batterie (marge 520 g) | 526 (-6) | 515 (+5) | 515 (+5) |
-| η 4S 40 / 4S 55 / 3S 55 km/h | 0,537 / 0,538 / 0,531 | 0,562 / 0,540 / 0,535 | 0,563 / 0,537 / 0,531 |
+| Groupe propulsif [g] (budget 62 g) | 77 (+15) | 66 (+4) | 66 (+4) |
+| Masse 4S1P, cellules 69 g (marge 800 g) | 811 (-11) | 800 (+0) | 800 (+0) |
+| Masse 4S1P, cellules 70 g (marge) | 815 (-15) | 804 (-4) | 804 (-4) |
+| Sans batterie (marge 520 g) | 523 (-3) | 512 (+8) | 512 (+8) |
+| η 4S 40 / 4S 55 / 3S 55 km/h | 0,537 / 0,537 / 0,531 | 0,562 / 0,540 / 0,534 | 0,563 / 0,536 / 0,531 |
 | V1-PERF-03 4S 55 km/h [min] (−30 % à −20 %) | 46 à 53 | 46 à 53 | 46 à 53 |
 | V1-PERF-03, CD0 0,035, −30 % [min] | 43 | 43 | 42 |
 | V1-PERF-04 4S 40 km/h [min] | 79 à 91 | 83 à 95 | 83 à 95 |
 | V1-PERF-05 3S 55 km/h [min] | 35 à 40 | 35 à 40 | 35 à 40 |
 | T/W ISA 3S / 4S | 0,76 / 0,86 | 0,69 / 0,63 | 0,68 / 0,62 |
-| T/W jour chaud 3S / 4S | 0,70 / 0,80 | 0,65 / 0,59 | 0,64 / 0,59 |
+| T/W jour chaud 3S / 4S | 0,71 / 0,80 | 0,65 / 0,59 | 0,64 / 0,59 |
 | P max 3S / 4S [W] (V1-PROP-02 : 150-200 W) | 145 / 200 | 130 / 130 | 130 / 130 |
 | Erreur : 4S avec le fichier 3S | 296 W, 19,1 A moteur (1,04× la référence continue, 0,74× la limite 30 s ; survit 10 s : oui) | 261 W, 20,9 A moteur (1,50× la référence continue, 1,39× la limite 30 s ; survit 10 s : non) | 260 W, 17,8 A moteur (1,37× la référence continue, 1,27× la limite 15 s ; survit 10 s : non) |
 | Erreur : 4S sans bridage | 296 W, 19,1 A moteur (1,04× la référence continue, 0,74× la limite 30 s ; survit 10 s : oui) | 416 W, 27,8 A moteur (2,00× la référence continue, 1,85× la limite 30 s ; survit 10 s : non) | 300 W, 19,4 A moteur (1,49× la référence continue, 1,39× la limite 15 s ; survit 10 s : non) |
-| Exigences à MOD | V1-MAS-01, V1-MAS-02, V1-PROP-02 si lue batterie par batterie (P max 3S < 150 W) | V1-MAS-01, V1-PROP-02 | V1-MAS-01, V1-PROP-02 |
+| Exigences à MOD | V1-MAS-01, V1-MAS-02, V1-PROP-02 si lue batterie par batterie (P max 3S < 150 W) | V1-MAS-01 (avec cellules à 70 g), V1-PROP-02 | V1-MAS-01 (avec cellules à 70 g), V1-PROP-02 |
 
 
 ### Option retenue, option banc et variantes (ISA, CD0 0,030, masse avec groupe propulsif réel)
 
 | Option | Moteur, hélice 3S / 4S | THR_MAX 3S / 4S | η 4S 55 km/h | d croisière 4S ; régime | V1-PERF-03 [min] | V1-PERF-03, CD0 0,035, −30 % [min] | V1-PERF-04 [min] | V1-PERF-05 [min] | T/W jour chaud 3S / 4S | P max 3S / 4S [W] |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| F | X2212 980 KV, 8x6 / 8x6 | 1,00 / 0,84 | 0,538 (hélice 0,676) | 0,53 ; 7008 tr/min | 46,1 à 52,7 | 42,5 | 79 à 91 | 35 à 40 | 0,70 / 0,80 | 145 / 200 |
-| G | X2212 980 KV, 8x6 / 7x6 | 1,00 / 0,99 | 0,621 (hélice 0,799) | 0,59 ; 7822 tr/min | 52,3 à 59,8 | 47,6 | 84 à 96 | 35 à 40 | 0,70 / 0,72 | 145 / 200 |
-| F-8x5 | X2212 980 KV, 8x5 / 8x5 | 1,00 / 0,88 | 0,446 (hélice 0,554) | 0,61 ; 7963 tr/min | 39,0 à 44,6 | 36,4 | 70 à 80 | 29 à 34 | 0,68 / 0,84 | 131 / 200 |
-| C | 2212 920 KV, 8.5x5 / 7x6 | 1,00 / 1,00 | 0,641 (hélice 0,799) | 0,62 ; 7822 tr/min | 53,8 à 61,5 | 48,8 | 87 à 100 | 27 à 31 | 0,73 / 0,66 | 133 / 174 |
+| F | X2212 980 KV, 8x6 / 8x6 | 1,00 / 0,84 | 0,537 (hélice 0,676) | 0,53 ; 7007 tr/min | 46,1 à 52,7 | 42,6 | 79 à 91 | 35 à 40 | 0,71 / 0,80 | 145 / 200 |
+| G | X2212 980 KV, 8x6 / 7x6 | 1,00 / 0,99 | 0,621 (hélice 0,799) | 0,58 ; 7820 tr/min | 52,4 à 59,9 | 47,6 | 84 à 96 | 35 à 40 | 0,71 / 0,72 | 145 / 200 |
+| F-8x5 | X2212 980 KV, 8x5 / 8x5 | 1,00 / 0,88 | 0,446 (hélice 0,553) | 0,61 ; 7961 tr/min | 39,0 à 44,6 | 36,4 | 70 à 80 | 30 à 34 | 0,69 / 0,84 | 131 / 200 |
+| C | 2212 920 KV, 8.5x5 / 7x6 | 1,00 / 1,00 | 0,641 (hélice 0,799) | 0,62 ; 7820 tr/min | 53,8 à 61,5 | 48,9 | 87 à 100 | 27 à 31 | 0,74 / 0,66 | 133 / 174 |
 
 
 ### Option banc G : erreurs de fichier et de montage d'hélice (4S : batterie pleine, point fixe, ISA ; 3S : tension nominale, jour chaud)
@@ -501,20 +502,38 @@ Ne pas éditer à la main : ce fichier est réécrit à chaque exécution.
 | --- | --- | --- | --- | --- | --- |
 | 4S1P avec le fichier 3S (THR_MAX 1,00), 7x6 montée | 204 | 12,9 (0,70× continu ; 0,50× 30 s) | 14223 | — | oui |
 | 4S1P avec le fichier 4S (THR_MAX 0,99), 8x6 restée montée | 290 | 18,9 (1,03× continu ; 0,73× 30 s) | 13146 | — | oui |
-| 3S1P avec le fichier 3S, 7x6 restée montée | — | — | — | 0,47 (< 0,5 : V1-PERF-08 non tenue) | — |
+| 3S1P avec le fichier 3S, 7x6 restée montée | — | — | — | 0,48 (< 0,5 : V1-PERF-08 non tenue) | — |
 
 
-### Groupe propulsif : référence vérifiée et alternatives propulsives (masses de fiche ; moteur 57 g)
+### Groupe propulsif : référence retenue et groupes examinés (masses de fiche ; moteur 57 g)
 
-| Hélice + moyeu | Type | Rotation | Pales [g] | Moyeu-cône / adaptateur [g] | Moteur + pales + moyeu [g] |
+| Hélice + moyeu | Type | Rotation | Hélice / pales [g] | Adaptateur / moyeu-cône [g] | Moteur + hélice + moyeu [g] |
 | --- | --- | --- | --- | --- | --- |
-| CAM Carbon 8×6 (et 7×6) + moyeu-cône RFM 30 mm / 3,17 mm (référence) | repliable | droite (tractrice) | 9,0 | 14,0 | 80,0 (+18,0 / budget) |
+| APC 8x6EP (rigide, propulsive) + adaptateur à pince 3,17 mm / M6 RC Dude CPA-317-N (retenu) | rigide | gauche (propulsive) | 13,9 | 6,0 | 76,9 (+14,9 / budget) |
+| APC 7x6EP + adaptateur CPA-317-N (banc G) (7x6) | rigide | gauche (propulsive) | 7,9 | 6,0 | 70,9 |
 | aero-naut 8×5 linkslaufend + cône CN 30/3,17 (8x5) | repliable | gauche (propulsive) | non publiée | non publiée | non calculable |
-| APC 8x6EP (rigide) (8x6) | rigide | gauche (propulsive) | 13,9 | non publiée | ≥ 70,9 (moteur + pales, sans adaptateur) |
-| APC 7x6EP (rigide) (7x6) | rigide | gauche (propulsive) | 7,9 | non publiée | ≥ 64,9 (moteur + pales, sans adaptateur) |
+| CAM Carbon 8×6 + moyeu-cône RFM 30 mm (8x6) | repliable | droite (tractrice) | 9,0 | 14,0 | 80,0 |
 
 
-### Budget de masse réaffecté — option F, plan d'allègement (gain 18,7 g sur les postes remplacés)
+### Hélices APC et adaptateur à pince 3,17 mm / M6 RC Dude CPA-317-N : montage et régime
+
+| Hélice | Épaisseur de moyeu [mm] | Réserve sous les 10,5 mm de l'adaptateur [mm] | Régime max APC E [tr/min] | Rayon du disque sous l'axe [mm] |
+| --- | --- | --- | --- | --- |
+| APC 8x6EP | 9,4 | 1,1 | 18750 | 101,6 |
+| APC 7x6EP | 8,4 | 2,1 | 21429 | 88,9 |
+
+
+### Budget hélices (MOD-03 : lot de 10) — prix catalogue en dollars US, hors port et douane ; poste du cahier : 15 €
+
+| Article | Quantité | Prix unitaire [$] | Total [$] |
+| --- | --- | --- | --- |
+| APC 8x6EP (LP08060EP), lot consommable | 10 | 2,92 | 29,20 |
+| APC 7x6EP (LP07060EP), banc G | 1 | 2,71 | 2,71 |
+| Adaptateur RC Dude CPA-317-N | 1 | 4,49 | 4,49 |
+| **Total** |  |  | 36,40 |
+
+
+### Budget de masse réaffecté — option F, plan d'allègement (gain 17,7 g sur les postes remplacés)
 
 | Poste | Groupe | Cahier [g] | Réaffecté [g] | Écart [g] | Pièce |
 | --- | --- | --- | --- | --- | --- |
@@ -522,27 +541,51 @@ Ne pas éditer à la main : ce fichier est réécrit à chaque exécution.
 | Fuselage central PLA/PETG + trappe | structure | 70,0 | 70,0 | +0,0 | cahier |
 | Longeron carbone 8 mm + clé arrière 3 mm | structure | 30,0 | 30,0 | +0,0 | cahier |
 | Winglets + élevons | structure | 30,0 | 30,0 | +0,0 | cahier |
-| Moteur 2212 + hélice repliable + cône | systèmes | 62,0 | 80,0 | +18,0 | groupe propulsif réel (moteur de fiche + pales + moyeu-cône) |
+| Moteur 2212 + hélice repliable + cône | systèmes | 62,0 | 76,9 | +14,9 | X2212 V3 + APC 8x6EP (rigide, propulsive) + adaptateur à pince 3,17 mm / M6 RC Dude CPA-317-N |
 | Câblage, connecteurs, velcro, PCB d'interconnexion | systèmes | 35,0 | 35,0 | +0,0 | cahier |
 | Contrôleur de vol | systèmes | 25,0 | 14,3 | -10,7 | SpeedyBee F405 WING MINI (FC + PDB + carte sans fil) |
 | Raspberry Pi Zero 2 W + Camera Module 3 + microSD | systèmes | 20,0 | 20,0 | +0,0 | cahier |
 | 2 servos 9 g | systèmes | 18,0 | 18,0 | +0,0 | cahier |
 | ESC 30 A | systèmes | 15,0 | 9,0 | -6,0 | Favourite LittleBee-S 30 A, avec fils |
-| GPS M10 + compas | systèmes | 10,0 | 8,0 | -2,0 | Matek M10Q-5883 |
+| GPS M10 + compas | systèmes | 10,0 | 9,0 | -1,0 | M10 + compas (MicoAir M10G-5883 7 g ou FlyFishRC M10 9 g) |
 | Récepteur ELRS + antennes | systèmes | 3,0 | 3,0 | +0,0 | cahier |
 | **Structure (cahier)** |  | 320 | 320 |  |  |
-| **Systèmes** |  | 188 | 187,3 | -0,7 |  |
-| **Sans batterie** |  | 508 | 507,3 | -0,7 | V1-MAS-02 : ≤ 520 g |
-| **Total 4S1P, cellules 69 g** |  | 796 | 795,3 | -0,7 | V1-MAS-01 : ≤ 800 g |
-| **Total 4S1P, cellules 70 g** |  | 800 | 799,3 | -0,7 | V1-MAS-01 : ≤ 800 g |
-| **Total 3S1P, cellules 69 g** |  | 728 | 727,3 | -0,7 |  |
+| **Systèmes** |  | 188 | 185,2 | -2,8 |  |
+| **Sans batterie** |  | 508 | 505,2 | -2,8 | V1-MAS-02 : ≤ 520 g |
+| **Total 4S1P, cellules 69 g** |  | 796 | 793,2 | -2,8 | V1-MAS-01 : ≤ 800 g |
+| **Total 4S1P, cellules 70 g** |  | 800 | 797,2 | -2,8 | V1-MAS-01 : ≤ 800 g |
+| **Total 3S1P, cellules 69 g** |  | 728 | 725,2 | -2,8 |  |
 
 
 ### Structure cible qui découle du budget réaffecté
 
-| Structure max (4S1P ≤ 800 g, cellules 70 g) [g] | Structure max (V1-MAS-02) [g] | V1-MAS-03 [g] | Structure cible [g] | 4S1P cellules 70 g à la cible [g] (marge) | Sans batterie à la cible [g] (marge) | MOD-03 nécessaire |
-| --- | --- | --- | --- | --- | --- | --- |
-| 320,7 | 332,7 | 320 | 320 | 799,3 (+0,7) | 507,3 (+12,7) | non |
+| Cas | Structure max (4S1P ≤ 800 g, cellules 70 g) [g] | Structure max (V1-MAS-02) [g] | V1-MAS-03 [g] | Structure cible [g] | 4S1P cellules 70 g à la cible [g] (marge) | Sans batterie à la cible [g] (marge) | Cible sous les 320 g de V1-MAS-03 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| plan (FC 14,3 g) | 322,8 | 334,8 | 320 | 320 | 797,2 (+2,8) | 505,2 (+14,8) | non |
+| plan pessimiste (FC 19,0 g) | 318,1 | 330,1 | 320 | 318 | 799,9 (+0,1) | 507,9 (+12,1) | oui |
+| repli : FC du cahier (25 g), ESC et GPS du plan | 312,1 | 324,1 | 320 | 312 | 799,9 (+0,1) | 507,9 (+12,1) | oui |
+
+
+### Affectation des UART — SpeedyBee F405 WING MINI, cible ArduPilot SpeedyBeeF405WING
+
+| Port | Usage | Rôle |
+| --- | --- | --- |
+| SERIAL1 (USART1) | ELRS (CRSF), RX1 + TX1 | besoin V1-AV-03 |
+| SERIAL3 (UART3) | GPS M10 + compas (I2C pour le compas) | besoin V1-AV-04 |
+| SERIAL4 (UART4) | MAVLink2 vers le Pi Zero 2 W | besoin charge utile (V1-PL-01) |
+| SERIAL5 (UART5) | libre (TX5 aussi sur le connecteur vidéo) | réserve |
+| SERIAL2 (USART2) | libre si BRD_ALT_CONFIG = 1 (RX2 relié à l'entrée SBUS inversée) | réserve |
+| SERIAL6 (UART6) | carte sans fil interne (MAVLink2 Wi-Fi) | occupé |
+
+
+### BEC 5 V du contrôleur de vol face au Pi Zero 2 W et à la caméra (courants typiques)
+
+| Charge | Courant [A] | BEC FC 2,0 A continu / 3,0 A crête |
+| --- | --- | --- |
+| FC + GPS + récepteur (budget V1-AV-05 − V1-PL-01) | 0,40 |  |
+| Pi Zero 2 W + caméra, typique | 0,60 |  |
+| **Tout sur le BEC FC, typique** | 1,00 | 50 % du continu |
+| **Pi alimenté à 2 A (recommandation Raspberry Pi) + reste** | 2,40 | 120 % du continu, 80 % de la crête |
 
 
 ### Réserve et RTL

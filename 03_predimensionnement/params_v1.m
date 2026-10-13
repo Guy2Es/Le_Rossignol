@@ -112,29 +112,73 @@ p.masse.max_struct    = 320;% g  V1-MAS-03 (souhaitable)
 p.masse.seuil_struct  = 330;% g  règle de décision du cahier
 p.masse.ajout_sens    = 50; % g  surcharge testée en sensibilité
 
-%% Plan d'allègement (demande du 13/10/2026) : remplacements de postes
+%% Plan d'allègement (demande du 13/10/2026, VALIDÉ le 13/10/2026 sous
+%  réserve des vérifications ci-dessous) : remplacements de postes
 % Chaque ligne remplace la masse d'un poste du budget par celle d'une pièce
 % réelle (masses de fiche, consultées le 13/10/2026). Masses en grammes.
-%   Contrôleur de vol : SpeedyBee F405 WING MINI (ArduPilot :
-%     SpeedyBeeF405WING) = carte FC 5,6 g + PDB 5,5 g + carte sans fil 3,2 g
-%     (fiche reprise par hobbyrc.co.uk). PDB : capteur de courant 80 A,
-%     BEC FC 5,2 V 2 A, BEC servos 5 V 4 A.
+%   Contrôleur de vol : SpeedyBee F405 WING MINI = carte FC 5,6 g + PDB
+%     5,5 g + carte sans fil 3,2 g (fiche reprise par hobbyrc.co.uk et
+%     getfpv). La page ArduPilot de la carte donne « Muini:19G » : écart non
+%     expliqué, retenu comme cas pessimiste (p.allg.m_haut).
 %     Pour mémoire, le F405 WING APP du cahier : 24,5 g la carte, 35 g avec la
 %     rallonge USB (fiche) ; le poste de 25 g suppose la rallonge retirée.
 %   ESC : Favourite LittleBee-S 30 A (Hobbyking) : 30 A continu, 35 A crête,
 %     sans BEC (opto), 9 g avec fils de puissance et de signal.
-%   GPS : Matek M10Q-5883 (GNSS M10 + compas QMC5883L) : 8 g (fiche ; produit
-%     en fin de vie, un équivalent M10 + compas est à retrouver à l'achat).
+%   GPS : le Matek M10Q-5883 (8 g) est en fin de vie (« Discontinued »,
+%     absent de la page GNSS de mateksys.com, qui ne propose plus que le
+%     M9N-5883). Équivalents M10 + compas trouvés : MicoAir M10G-5883 (u-blox
+%     M10050 + QMC5883L, 7 g, 30 mA, pyrodrone) ; FlyFishRC M10-IST8310 /
+%     M10QMC-5883L (M10050, 9 g, fpvfaster). Les deux sont en rupture chez
+%     ces revendeurs le 13/10/2026. Le budget retient le plus lourd (9 g).
 p.allg.postes = [
     "Contrôleur de vol", "SpeedyBee F405 WING MINI (FC + PDB + carte sans fil)"
     "ESC 30 A",          "Favourite LittleBee-S 30 A, avec fils"
-    "GPS M10 + compas",  "Matek M10Q-5883"
+    "GPS M10 + compas",  "M10 + compas (MicoAir M10G-5883 7 g ou FlyFishRC M10 9 g)"
     ];
-p.allg.m = {[5.6 5.5 3.2], 9, 8};   % g, composants de chaque pièce (sommés par budget_reaffecte.m)
-% Leviers NON comptés (masses non publiées ou à peser) : câblage (la PDB du
-% MINI fournit le 5 V : le PCB d'interconnexion + régulateur pourrait
-% disparaître, si le BEC FC de 2 A suffit aussi au Pi Zero 2 W), servos
-% plus légers, hélice rigide APC au lieu du moyeu repliable.
+p.allg.m      = {[5.6 5.5 3.2], 9, 9};   % g, composants de chaque pièce (sommés par budget_reaffecte.m)
+p.allg.m_haut = {19,            9, 9};   % g, cas pessimiste (FC : 19 g de la page ArduPilot)
+% Leviers NON comptés (masses non publiées ou à peser) : câblage, servos
+% plus légers. Le PCB d'interconnexion + régulateur 5 V du cahier est GARDÉ :
+% il alimente le Pi Zero 2 W (voir p.av, BEC du contrôleur de vol).
+
+%% Avionique : BEC 5 V, UART et firmware (vérifications du 13/10/2026)
+% ArduPilot (ardupilot.org, « SpeedyBeeF405WING/ Wing Mini ») : une seule
+% cible, SpeedyBeeF405WING, pour la WING et la WING MINI ; STM32F405, 1 Mo de
+% flash (« this board does not include all ArduPilot features »).
+% features.txt de la cible (firmware.ardupilot.org, Plane stable) :
+% AP_FENCE_ENABLED, AP_GPS_UBLOX_ENABLED, AP_RCPROTOCOL_CRSF_ENABLED,
+% AP_COMPASS_QMC5883L_ENABLED, AP_COMPASS_IST8310_ENABLED présents ;
+% !AP_COMPASS_QMC5883P_ENABLED (compas QMC5883P NON pris en charge) ;
+% !AP_SCRIPTING_ENABLED (pas de Lua).
+% BEC du contrôleur de vol : MINI « 5.2V, continuous current 2 Amps, 3A
+% Peak » pour FC, récepteur, GPS, airspeed, télémétrie (fiche, revendeurs
+% fpvfaster et getfpv) ; la page ArduPilot donne 5 V 2,4 A (valeur de la WING).
+% BEC servos : 5 V 4 A (fiche MINI).
+% Raspberry Pi (raspberrypi.com, documentation, Power supply) : Zero 2 W :
+% alimentation recommandée 2 A, consommation typique carte nue active 350 mA ;
+% « Camera Module » : 250 mA typiques.
+p.av.V_bec       = 5.0;    % V   tension du BEC
+p.av.I_bec_fc    = 2.0;    % A   BEC du contrôleur de vol, continu (fiche MINI)
+p.av.I_bec_fc_pk = 3.0;    % A   crête
+p.av.I_pi        = 0.350;  % A   Pi Zero 2 W, typique actif
+p.av.I_cam       = 0.250;  % A   Camera Module, typique
+p.av.I_pi_psu    = 2.0;    % A   alimentation recommandée par Raspberry Pi pour le Zero 2 W
+p.av.P_av_max    = 4.5;    % W   V1-AV-05 : avionique, caméra comprise (souhaitable)
+p.av.P_pl_max    = 2.5;    % W   V1-PL-01 : Pi + caméra
+% Affectation des UART (page ArduPilot, ordre par défaut) :
+p.av.uart = [
+    "SERIAL1 (USART1)", "ELRS (CRSF), RX1 + TX1", "besoin V1-AV-03"
+    "SERIAL3 (UART3)",  "GPS M10 + compas (I2C pour le compas)", "besoin V1-AV-04"
+    "SERIAL4 (UART4)",  "MAVLink2 vers le Pi Zero 2 W", "besoin charge utile (V1-PL-01)"
+    "SERIAL5 (UART5)",  "libre (TX5 aussi sur le connecteur vidéo)", "réserve"
+    "SERIAL2 (USART2)", "libre si BRD_ALT_CONFIG = 1 (RX2 relié à l'entrée SBUS inversée)", "réserve"
+    "SERIAL6 (UART6)",  "carte sans fil interne (MAVLink2 Wi-Fi)", "occupé"
+    ];
+
+%% Contrainte pour la phase 5 (décision du 13/10/2026) : garde au sol
+% Hélice rigide propulsive : le disque balaie D/2 sous l'axe moteur. Placer
+% l'axe le plus haut possible et vérifier la garde au sol à l'atterrissage
+% sur le ventre (V1-STR-02).
 
 %% Exigences de mission (cahier, tableau des exigences)
 p.req.Vs_max      = 32/3.6;   % m/s  V1-PERF-01 : décrochage ≤ 32 km/h à 800 g
@@ -241,53 +285,75 @@ p.motEh.Imax_ref = 14;             % A
 p.motEh.m        = p.motE.m;       % kg
 p.motEh.P_plage  = p.motE.P_plage;
 p.motEh.D_min    = p.motE.D_min;
-% Groupe propulsif « moteur + pales repliables + moyeu + cône » (poste de
-% 62 g du budget du cahier). Références RÉELLES pour axe 3,175 mm, pied de
-% pale 8 mm (consultées le 13/10/2026) :
-%   pales : aero-naut CAM Carbon 8×6 (réf. fabricant 723417), paire,
-%           « Nettogewicht 9 g » (Zeller Modellbau, art. 132733 ; masse
-%           revendeur, pas fabricant) ; régime max admis 16 000 tr/min
-%           (Reisenauer, fiche CAM Carbon 8×6) ;
-%   moyeu + cône : RFM Freudenthaler, cône CFK Ø 30 mm, alésage 3,17 mm,
-%           pied de pale 8 mm, CFK + alu, vis fournies : 14 g (f3x.de).
-% Hypothèse signalée : même masse de pales pour les hélices de 7 pouces
-% (majorant ; masse de la CAM Carbon 7×6 non publiée).
-% Vérification du 13/10/2026 (navigateur Obscura) :
-%   - moyeu RFM (f3x.de, art. RFM9106-317mk) : « Drehrichtung rechts
-%     (Standard) », largeur de pied de pale 8 mm, trou de pale 3 mm, fixation
-%     par vis pointeau (méplat de 0,5 mm à meuler sur l'axe), 45,54 € ;
-%     « autres types sur demande » (page RFM de f3x.de), version gauche non
-%     confirmée ;
-%   - CAM Carbon 7×6 (hacker-motor-shop.com ; Reisenauer) : pied 8 mm, trou
-%     3 mm, 16 000 tr/min max, « rechtslaufend » : même moyeu que la 8×6 ;
-%   - X2212 V3 : axe 3,17 mm (sunnyskyusa.com, « Replacement Shaft for
-%     SunnySky X2212 Motors 3.17mm » ; X2212 d'avant 2013 : 3 mm) ; version
-%     à axe long livrée avec pince alu ; l'axe long permet d'inverser le
-%     montage du moteur ;
-%   - les CAM Carbon 8×6 et 7×6 et le moyeu RFM sont en rotation DROITE
-%     (tractrice) : aucune version propulsive trouvée (voir p.gp.alt).
-p.gp.poste      = "Moteur 2212 + hélice repliable + cône";  % ligne du budget
-p.gp.m_pales    = 0.009;   % kg  paire de pales CAM Carbon 8×6
-p.gp.m_moyeu    = 0.014;   % kg  moyeu + cône RFM Ø 30 mm, 3,17 mm
-p.gp.n_max_rpm  = 16000;   % tr/min, limite des pales CAM Carbon 8×6
-p.gp.t_lancer   = 10;      % s   plein gaz au lancer + montée (cas d'erreur)
-% Alternatives PROPULSIVES trouvées (masses publiées seulement ; NaN = non
-% publiée). Les masses APC sont données en onces sur la fiche.
-%   alt 1 : aero-naut « Klappluftschraube 8x5" linkslaufend Carbon » (722415,
-%           « als Druckpropeller (linkslaufend) entwickelt », plastique chargé
-%           carbone ; existe aussi en 9,5×5 et 10×7, PAS en 8×6 ni 7×6) +
-%           cône aero-naut CN 30/3,17 mm (725903 : pince conique M8, pied 8 mm,
-%           Mittelstück alu) ; masses non publiées ;
-%   alt 2 : APC 8x6EP (LP08060EP, « Thin Electric Pusher, Reverse Rotation »,
-%           0,49 oz, alésage 1/4" avec bagues) : RIGIDE, adaptateur à prévoir ;
-%   alt 3 : APC 7x6EP (0,28 oz) : rigide, pour G.
+% Groupe propulsif « moteur + hélice + moyeu » (poste « Moteur 2212 + hélice
+% repliable + cône » de 62 g du budget du cahier).
+% DÉCISION DE L'UTILISATEUR (13/10/2026, après vérification du moyeu) :
+% hélice APC 8x6EP RIGIDE propulsive (MOD-03 sur V1-PROP-03) ; une APC
+% 7x6EP est achetée pour trancher G au banc (phase 9).
+% Références RÉELLES (consultées le 13/10/2026, navigateur Obscura) :
+%   hélice : APC 8x6EP (LP08060EP, apcprop.com) : « Thin Electric Pusher,
+%            Reverse Rotation », 0,49 oz, alésage 1/4", épaisseur de moyeu
+%            0,37 in, bagues LPAR06E fournies (un jeu) ; 2,92 $ ;
+%            APC 7x6EP (LP07060EP) : 0,28 oz, alésage 1/4", moyeu 0,33 in,
+%            bagues LPAR18SF et LPARM12SF fournies ; 2,71 $.
+%            Bagues : LPAR06E = 1/8", 4, 5, 6 mm, 5/16" (revendeurs AMain,
+%            HobbyTown) ; LPARM12SF : bague de 6 mm annoncée par un revendeur
+%            (readymaderc), à confirmer à réception.
+%   régime max APC « Thin Electric (E) » : 150 000 / D[in] tr/min
+%            (apcprop.com, RPM Limits), soit 18 750 tr/min en 8 pouces.
+%   adaptateur : pince 3,17 mm à écrou hexagonal, RC Dude Hobbies CPA-317-N
+%            (rcdude.com) : axe fileté M6 × 1,0 de 6 mm, « Prop Adapter
+%            Weight – 6.0 grams », longueur utile 17 mm, épaisseur de moyeu
+%            max 10,5 mm avec rondelle et écrou, en stock, 4,49 $.
+%            Écartés : HobbyKing 017000383 / 017000384 (4,2 g, axe 5 mm) :
+%            « Discontinued Product » ; E-flite EFLM1923 (6 g, en stock chez
+%            Horizon, « Final Hub Diameter 6.5mm » : plus gros que l'alésage
+%            APC de 1/4", alésage à reprendre) ; adaptateurs à masse publiée
+%            seulement par des revendeurs non identifiés (robu.in 3 g, specs
+%            contradictoires).
+%   Le paquet du X2212 V3 contient « 1 x Propeller Adapter » (readymaderc,
+%   type et masse non publiés) : à peser, il peut remplacer l'adaptateur.
+% Hypothèse signalée : la masse de l'hélice 8×6 est gardée pour l'option G
+% (7×6 en 4S) : majorant (fiches : 0,49 oz contre 0,28 oz).
+% Vérification antérieure (13/10/2026) : pales CAM Carbon 8×6 / 7×6 et moyeu
+% RFM en rotation DROITE (tractrice) seulement ; X2212 V3 : axe 3,17 mm.
 p.const.oz = 0.028349523125;   % kg  once avoirdupois (conversion des fiches APC)
+p.const.in = 0.0254;           % m   pouce
+p.gp.poste      = "Moteur 2212 + hélice repliable + cône";  % ligne du budget (libellé du cahier)
+p.gp.nom_hel    = "APC 8x6EP (rigide, propulsive)";
+p.gp.nom_moyeu  = "adaptateur à pince 3,17 mm / M6 RC Dude CPA-317-N";
+p.gp.m_pales    = 0.49 * p.const.oz;   % kg  hélice APC 8x6EP (fiche : 0,49 oz)
+p.gp.m_moyeu    = 0.0060;              % kg  adaptateur (fiche : 6,0 g ; écrou et rondelle inclus ou non : non précisé, à peser)
+p.gp.k_rpm      = 150000;              % tr/min·in, régime max APC E = k_rpm / D
+p.gp.e_moyeu    = [0.37 0.33] * p.const.in;  % m  épaisseur de moyeu APC 8x6EP, 7x6EP
+p.gp.e_max      = 0.0105;              % m   épaisseur de moyeu max de l'adaptateur (avec rondelle et écrou)
+p.gp.t_lancer   = 10;      % s   plein gaz au lancer + montée (cas d'erreur)
+% Autres groupes propulsifs examinés (masses publiées seulement ; NaN = non
+% publiée), pour la traçabilité de la décision :
+%   alt 1 : APC 7x6EP + même adaptateur : option banc G (rigide, propulsive) ;
+%   alt 2 : aero-naut « Klappluftschraube 8x5" linkslaufend Carbon » (722415,
+%           seule 8 pouces repliable propulsive trouvée ; PAS de 8×6 ni 7×6)
+%           + cône aero-naut CN 30/3,17 mm (725903) ; masses non publiées ;
+%           F-8x5 fait échouer V1-PERF-03 et 05 ;
+%   alt 3 : pales CAM Carbon 8×6 (9 g, Zeller Modellbau) + moyeu-cône RFM
+%           Ø 30 mm / 3,17 mm (14 g, f3x.de) : repliable mais TRACTRICE.
 p.gp.alt = struct( ...
-    'nom',     {"aero-naut 8×5 linkslaufend + cône CN 30/3,17", "APC 8x6EP (rigide)", "APC 7x6EP (rigide)"}, ...
-    'hel',     {[8 5], [8 6], [7 6]}, ...
-    'repliable', {true, false, false}, ...
-    'm_pales', {NaN, 0.49 * p.const.oz, 0.28 * p.const.oz}, ...   % kg
-    'm_moyeu', {NaN, NaN, NaN});                                   % kg (cône / adaptateur)
+    'nom',     {"APC 7x6EP + adaptateur CPA-317-N (banc G)", "aero-naut 8×5 linkslaufend + cône CN 30/3,17", "CAM Carbon 8×6 + moyeu-cône RFM 30 mm"}, ...
+    'hel',     {[7 6], [8 5], [8 6]}, ...
+    'repliable', {false, true, true}, ...
+    'rotation', {"gauche (propulsive)", "gauche (propulsive)", "droite (tractrice)"}, ...
+    'm_pales', {0.28 * p.const.oz, NaN, 0.009}, ...   % kg
+    'm_moyeu', {p.gp.m_moyeu, NaN, 0.014});           % kg (adaptateur / cône)
+
+%% Budget hélices (MOD-03 : hélices consommables, lot de 10)
+% Prix catalogue en dollars US (fiches citées ci-dessus), hors port, douane
+% et conversion : à établir à l'achat. Poste du cahier : « Hélices,
+% propulsives repliables + cône, lot » 15 €.
+p.bud.hel = struct( ...
+    'article', {"APC 8x6EP (LP08060EP), lot consommable", "APC 7x6EP (LP07060EP), banc G", "Adaptateur RC Dude CPA-317-N"}, ...
+    'qte',     {10, 1, 1}, ...
+    'prix_usd', {2.92, 2.71, 4.49});
+p.bud.hel_cahier_eur = 15;     % € poste « Hélices » du budget du cahier
 
 % Hélices repliables propulsives : [diamètre pouces, pas pouces]
 % (tailles courantes des pales repliables ; disponibilité en version
@@ -336,8 +402,14 @@ p.opt = struct( ...
 % deux batteries, THR_MAX 4S calculé par limite_gaz.m (200 W). G (7×6 en 4S)
 % reste une option à trancher au banc en phase 9 ; les deux jeux de pales
 % sont achetés.
+% Décisions suivantes (13/10/2026) : hélice APC 8x6EP rigide propulsive
+% (p.gp), APC 7x6EP achetée pour le banc ; plan d'allègement validé sous
+% réserve (p.allg, p.av) ; MOD-01 et MOD-02 validées ; MOD-03 sur V1-PROP-03.
 p.choix.ref  = "F";        % option de référence (nom dans p.opt)
 p.choix.banc = "G";        % option à trancher au banc (phase 9)
+p.choix.mod  = ["MOD-01", "V1-PERF-03", "validée le 13/10/2026"
+                "MOD-02", "V1-PROP-02", "validée le 13/10/2026"
+                "MOD-03", "V1-PROP-03", "validée le 13/10/2026 (texte fixé par l'utilisateur)"];
 
 %% Sensibilité (§6)
 p.sens.eta  = p.prop.eta * [0.8 1.2];   % ±20 %

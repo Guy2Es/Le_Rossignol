@@ -14,7 +14,7 @@ function E = cas_erreur(mot, hel4S, thr3S, rho, p)
 %     I_ref [A] et ref : référence continue (limite publiée, sinon plus fort
 %     courant d'essai de la fiche, signalé), ratios aux limites (référence
 %     continue, moteur courte durée, ESC, cellule, puissance de fiche, régime
-%     max des pales) et verdicts.
+%     max de l'hélice n_max = p.gp.k_rpm / D) et verdicts.
 %
 %   HORS SKILL. Point fixe (V = 0), batterie pleine (V_plein) : courant et
 %   puissance maximaux, donc cas enveloppe du lancer et du début de montée.
@@ -46,7 +46,8 @@ for k = 1:2
     E(k).r_esc      = max(E(k).I_b, E(k).I_m) / p.mot.I_esc;
     E(k).r_cell     = E(k).I_b / p.batt.I_max;
     E(k).r_P        = E(k).P / mot.P_fiche;      % NaN si pas de puissance de fiche
-    E(k).r_rpm      = E(k).rpm / p.gp.n_max_rpm;
+    E(k).n_max      = p.gp.k_rpm / hel4S(1);         % tr/min, régime max de l'hélice (APC E : 150 000 / D)
+    E(k).r_rpm      = E(k).rpm / E(k).n_max;
     % Verdicts
     E(k).survit_10s = E(k).r_mot_30s <= 1 && ~(E(k).r_P > 1) && mot.t_I30 >= p.gp.t_lancer;
     E(k).esc_ok  = E(k).r_esc  <= 1;
