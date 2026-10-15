@@ -419,4 +419,189 @@ p.sens.FM   = p.prop.FM * [0.8 1.2];    % ajout hors demande : pèse sur le poin
 
 %% Sorties
 p.sortie.dpi = 200;           % résolution des PNG
+
+%% ===================== PHASE 4 — aérodynamique et stabilité (xflr5) =====================
+% Décisions de l'utilisateur (13/10/2026) : xflr5 v6.62 piloté par l'utilisateur,
+% MATLAB lit les exports et fait tous les calculs (04_aero_stabilite/stabilite.m).
+% La géométrie de la phase 3 (b, S, cordes, MAC) est GARDÉE : la phase 4 n'itère
+% que sur la flèche, le vrillage et le profil.
+
+% Viscosité : loi de Sutherland (hors skill, déjà utilisée en phase 3 dans
+% estimation_cd0_e.m ; constantes de l'air standard)
+p.const.mu_S  = 1.458e-6;      % kg/(m·s·K^0,5)  constante de Sutherland
+p.const.T_S   = 110.4;         % K               température de Sutherland
+
+%% Géométrie de l'aile (phase 4) : valeurs de départ de l'énoncé de la phase 4
+p.geo4.fleche_BA   = 27;          % deg  flèche du bord d'attaque (départ)
+p.geo4.vrillage    = -3;          % deg  vrillage au saumon (négatif = piqueur), départ au milieu de 2-4°
+p.geo4.vrillage_plage = [-2 -7];  % deg  plage d'itération du vrillage au saumon (décision du 13/10/2026 : ouverte jusqu'à −7°)
+p.geo4.vrillage_matrice = [-3 -5 -7]; % deg  vrillages des T2 (décision du 13/10/2026 : VLM linéaire, Cm0 linéaire et CDi quadratique en vrillage ; 3 points suffisent, un T2 de contrôle si l'optimum tombe entre deux valeurs)
+p.geo4.loi_vrillage = "lineaire"; % vrillage proportionnel à y/(b/2) (HYPOTHÈSE)
+p.geo4.y_sec       = [0 0.25 0.50]; % m  stations : emplanture, début des élevons, saumon
+p.geo4.dihedre     = 0;           % deg
+p.geo4.charniere   = 0.75;        % x/c  charnière des élevons (élevons à 25 % de corde)
+p.geo4.y_elevon    = [0.25 0.50]; % m    élevons sur la moitié extérieure de chaque demi-aile
+% Winglets (dérives de bout d'aile) : seule la hauteur est donnée par l'énoncé
+p.geo4.wl_h        = 0.10;        % m    hauteur
+p.geo4.wl_c_pied   = p.geo.c_ext; % m    corde au pied = corde du saumon (HYPOTHÈSE)
+p.geo4.wl_c_tete   = 0.09;        % m    corde en tête (HYPOTHÈSE, effilement 0,5)
+p.geo4.wl_fleche   = 30;          % deg  flèche du bord d'attaque du winglet (HYPOTHÈSE)
+p.geo4.wl_profil   = "NACA 0008"; % profil symétrique (HYPOTHÈSE), généré par xflr5
+% Longeron : contrôle de place dans le profil (le tracé exact est fait en phase 5)
+p.geo4.d_longeron  = 0.008;       % m    longeron carbone 8 mm (cahier, budget de masse)
+p.geo4.x_longeron  = 0.25;        % x/c  position relative du longeron (HYPOTHÈSE)
+p.geo4.e_peau      = 0.0008;      % m    épaisseur de paroi LW-PLA autour du longeron (HYPOTHÈSE)
+
+%% Analyses xflr5 (énoncé de la phase 4)
+p.xfl.dossier_profils = "profils";              % sous-dossier de 04_aero_stabilite
+p.xfl.profils  = ["mh45" "mh60" "mh61" "s5010"]; % choix de l'utilisateur (13/10/2026), base UIUC
+p.xfl.profils_3d = ["mh45" "s5010"];            % profils de l'aile 3D (décision du 13/10/2026)
+p.xfl.Re_min   = 80000;     % -    bas de la plage du lot XFoil (énoncé)
+p.xfl.Re_max   = 400000;     % -    haut de la plage (énoncé)
+p.xfl.Re_pas   = 20000;      % -    pas du lot (choix de calcul)
+p.xfl.Ncrit    = 9;          % -    énoncé
+p.xfl.alpha    = [-6 14 0.5];% deg  [début fin pas] des polaires 2D (choix de calcul)
+p.xfl.Re_vol   = [170000 260000]; % - Reynolds de l'énoncé (38 et 55 km/h), comparaison des profils
+p.xfl.V_max    = 70/3.6;     % m/s  vitesse max examinée (haut de p.bal.V_kmh)
+p.xfl.Re_marge = 0.9;        % -    Re_min du lot ≤ 0,9 × plus petit Re de vol (marge d'extrapolation)
+p.xfl.dossier_pol2d = "xflr5/exports/polaires_2d"; % exports .txt de l'étape 1 (sous-dossier de 04_aero_stabilite)
+p.xfl.Cl_fit_Cm0 = [0.1 0.6]; % -  plage de Cl de la droite Cm(Cl) extrapolée à Cl = 0 (contrôle de Cm0, hors bulle)
+p.xfl.creux_tol = 0.10;      % -    creux de traînée : plage de Cl où Cd ≤ (1 + 0,10)·Cd_min (définition de calcul)
+% Noms des profils DANS xflr5 (première ligne du .dat, espaces compris : lus sur
+% les exports de l'étape 1 et le gabarit avion_winglet.xml)
+p.xfl.nom_xflr5 = struct('mh45', "MH 45  9.85%", 'mh60', "MH 60  10.08%", 'mh61', "MH 61  10.26%", ...
+                         's5010', "S5010", 'naca0008', "NACA 0008");
+p.xfl.profil_wl = "naca0008";  % profil du winglet (lot XFoil de 30 000 à 250 000, 13/10/2026)
+% Avions générés pour le T2 (étape 2) : choix de calcul
+p.xfl.dossier_genere = "xflr5/genere";        % sous-dossier de 04_aero_stabilite
+p.xfl.nx       = 13;          % -    panneaux en corde (aile et winglets), comme le gabarit
+p.xfl.ny_aile  = [12 12];     % -    panneaux en envergure de chaque panneau d'aile (emplanture→élevons, élevons→saumon)
+p.xfl.ny_wl    = 7;           % -    panneaux en hauteur du winglet, comme le gabarit
+p.xfl.methode_T2 = "VLM2";    % -    anneaux tourbillonnaires (plan approuvé) ; le gabarit de l'étape 0 était en VLM1
+p.xfl.T2_alpha = [-2 12 0.5]; % deg  plage d'alpha à saisir dans xflr5 ; xflr5 rejette seul les points
+                              %      à portance négative ou hors des polaires ; MATLAB vérifie que les CL
+                              %      de 35 à 70 km/h sont couverts
+p.xfl.dossier_T2 = "xflr5/exports/T2/v1_winglet_tilt"; % exports T2 non visqueux, winglets inclinés du
+                              %      vrillage du saumon (la série à winglets à plat est écartée : treillis croisés)
+p.xfl.alpha_Cl = [4 12];      % deg  alpha des deux exports de Cl local (reconstruction linéaire entre les deux)
+p.geo4.vrillage_panknin = [-5 -7]; % deg  indication de l'utilisateur (Panknin, HORS SKILL) pour δ ≈ 0 à
+                              %      45 km/h avec MS 9 % : repère sur les figures, pas un résultat
+p.xfl.profil_retenu = "s5010"; % profil de l'aile (décision du 13/10/2026, arrêt B)
+% T2 à élevons braqués (arrêt B) : avec les 3 T2 à δ = 0 (vrillages -3/-5/-7°), 3 points de plus
+% déterminent exactement les modèles quadratiques en (vrillage, δ) : [vrillage δ] en deg, δ xflr5
+p.xfl.elevon_T2 = [-3 -6; -7 -6; -5 -3];
+p.xfl.elevon_T2_controle = [-5 0];  % T2 de contrôle (décidé le 13/10/2026) : maillage à élevons, δ = 0 (effet du maillage seul)
+p.xfl.dy_elevon = 0.004;       % m    panneau de transition centré sur le début des élevons (xflr5 interpole
+                               %      le profil entre deux sections : envergure efficace des élevons conservée)
+p.xfl.T2_alpha_elv = [-2 14 0.5]; % deg plage d'alpha des T2 à élevons relevés (CL de 35 km/h à couvrir)
+p.xfl.alpha_Cl_elv = [6 14];   % deg  alpha des exports de Cl local des T2 à élevons (portance > 0 sûre)
+p.xfl.pas_Cl_volet = 0.005;    % -    pas de Cl de la table (δ, Cl, Re) des polaires à volet (stabilite.m §11, choix de calcul)
+% Contrôle visqueux en bandes (section C) : Cm XFoil du profil − Cm de sa ligne moyenne (profils minces),
+% intégré sur l'envergure avec le Cl local du T2 (HORS SKILL, signalé)
+p.xfl.V_visc = [35 40 45 55 70]/3.6; % m/s vitesses du contrôle
+% Section C2 : T2 visqueux xflr5 contre T2 non visqueux, même avion, mêmes alpha. Tranche si xflr5
+% reprend déjà le Cm des polaires XFoil (la correction en bandes le compterait alors deux fois).
+p.xfl.avion_C2   = "V1_S5010_vr5";
+p.xfl.C2_seuils  = [0.25 0.75]; % -  rapport ΔCm xflr5 / ΔCm en bandes (médiane) : < 0,25 → xflr5 ne reprend
+                                %    pas le Cm XFoil, correction en bandes appliquée ; > 0,75 → il le
+                                %    reprend, correction en bandes NON appliquée ; entre les deux → arrêt
+                                %    (choix de calcul)
+% Profils à volet : braquages des polaires XFoil (même lot qu'à l'étape 1). −9° sans T2 : le cas
+% 35 km/h, MS 10 % reste une interpolation (décision du 13/10/2026)
+p.xfl.d_volet = [-3 -6 -9];     % deg  convention xflr5 (< 0 = bord de fuite vers le haut)
+p.xfl.dossier_pol_volet = "xflr5/exports/polaires_volet"; % exports .txt des polaires des profils à volet
+p.xfl.Re_volet_tab = [130000 190000 250000]; % -  Re du tableau d'efficacité des élevons (cordes des
+                                %    élevons de 35 à 55 km/h, voir stabilite.m §10) : choix d'affichage
+p.xfl.Cl_volet_tab = [0.2 0.4 0.6];          % -  Cl locaux du tableau (Cl des bandes d'élevon en vol)
+p.stab.MS_T2   = 0.09;        % -    MS provisoire de la batterie dans les T2 (milieu de V1-STAB-02) :
+                              %      sans effet sur X_NP ni sur Cm(CL = 0), seul le transfert du Cm en dépend
+
+%% Stabilité et centrage (cahier V1-STAB-01 à 04 ; critères fixés par l'utilisateur le 13/10/2026)
+p.stab.Cm0_min    = 0;             % -   V1-STAB-01 : Cm0 du profil ≥ 0
+p.stab.MS_vol1    = [0.08 0.10];   % -   V1-STAB-02 : marge statique au premier vol (fraction de MAC)
+p.stab.MS_regle   = [0.05 0.07];   % -   aile réglée (énoncé), pour information
+p.stab.plage_batt = 0.015;         % m   V1-STAB-03 : ± 15 mm de réglage par la batterie (cahier)
+p.stab.plage_batt_MOD05 = 0.020;   % m   MOD-05 (BROUILLON du 13/10/2026) : ± 20 mm (± 18 mm d'abord, élargi le
+                                   %     même jour : 0,2 mm de marge avec le foyer visqueux) ; sans déplacement de masses
+p.stab.zeta_spo   = 0.4;           % -   V1-STAB-04 : oscillation d'incidence (C1 p.180)
+p.stab.zeta_dr    = 0.1;           % -   V1-STAB-04 : roulis hollandais (C1 p.180)
+p.stab.T2_spi_vise = 12;           % s   spirale : objectif (C1 p.180)
+p.stab.T2_spi_nogo = 4;            % s   spirale : no-go si T2 < 4 s (12 s × √(1/10), Froude,
+                                   %     1 m contre ≈ 10 m d'envergure ; ÉCART à la skill)
+p.stab.V_trim     = [35 55]/3.6;   % m/s plage d'équilibre
+p.stab.V_trim_ref = 45/3.6;        % m/s vitesse de référence des élevons
+% Critère d'élevons du go/no-go (utilisateur, 13/10/2026, arrêt B ; remplace « |δ| ≤ 1° à 45 km/h
+% et ≤ 3° sur la plage » de l'arrêt A, critère hors cahier donc sans MOD). SEUILS PROVISOIRES, à
+% revoir avec le Cm_δ de l'étape 3. Convention xflr5 : δ > 0 = bord de fuite vers le bas.
+% REMPLACÉ le 15/10/2026 (voir p.stab.d_crois) : infaisable par construction, l'écart de braquage
+% de 35 à 55 km/h (≈ MS·ΔCL/Cm_δ) dépasse la fenêtre. Gardé pour la trace de l'arrêt (stabilite.m §11).
+p.stab.d_trim     = [-6 0];        % deg braquage d'équilibre de 35 à 55 km/h, 3S1P et 4S1P, MS 8 et 10 % :
+                                   %     entre 0 et 6° vers le haut
+p.stab.d_reserve  = 10;            % deg débattement à cabrer (vers le haut) restant à 35 km/h, au minimum
+p.stab.V_choix_vr = [40 55]/3.6;   % m/s vrillage choisi sur la traînée équilibrée par les élevons à ces vitesses
+% Calcul de δ_trim (stabilite.m §11) : choix de calcul
+p.stab.pas_V_trim = 1/3.6;         % m/s pas de vitesse de δ_trim(V) sur p.stab.V_trim
+p.stab.pas_vr     = 0.25;          % deg pas de vrillage (équilibre, critère, traînée) entre les vrillages des T2
+p.stab.vr_tableau = [-3 -4 -5 -6 -7]; % deg vrillages détaillés dans les tableaux (choix d'affichage)
+p.stab.d_lim      = [-30 15];      % deg plage de recherche de δ_trim ; hors de −9 à 0° (polaires à volet),
+                                   %     prolongement linéaire en δ, signalé
+p.stab.mode_verdict = "complet";   % modèle d'élevons du verdict (cm_elevons) : "complet" ajoute à la méthode
+                                   %     annoncée en E4 ("bandes", montrée à côté) la perte de portance du
+                                   %     volet mesurée par XFoil (η_α du §10). ÉCART à la procédure, signalé
+% Critères des élevons du 15/10/2026 (utilisateur ; remplacent p.stab.d_trim et p.stab.d_reserve ;
+% hors cahier, donc sans MOD ; V1-STAB-02 inchangée) : deux questions séparées
+p.stab.V_crois    = [40 55]/3.6;   % m/s croisière (40 km/h = p.req.V_end_op, endurance opérationnelle)
+p.stab.d_crois    = [-10 0];       % deg δ_trim en croisière, 3S1P et 4S1P, à chaque MS de p.stab.MS_crois
+p.stab.MS_crois   = [0.08 0.09 0.10]; % -  MS nominale 9 % ; 8 et 10 % : tolérance de centrage
+p.stab.MS_nom     = 0.09;          % -   MS nominale du premier vol
+p.stab.MS_autorite = 0.10;         % -   autorité : CG le plus avant (MS 10 %), 3S1P et 4S1P
+p.stab.d_autorite = -20;           % deg autorité : équilibre au CLmax de l'aile avec au plus 20° vers le haut
+p.stab.MS_bas     = [0.07 0.08 0.09]; % - si aucune variante ne passe : MS de premier vol 7–9 % à chiffrer
+                                   %     (pas de MOD sur V1-STAB-02 sans accord de l'utilisateur)
+p.stab.CL_autorite = [0.4 1.4];    % -   bornes de la recherche du CLmax équilibré (dichotomie, choix de calcul)
+p.stab.n_dicho    = 14;            % -   pas de dichotomie du CLmax équilibré (précision 6e-5, choix de calcul)
+p.stab.tol_decrochage = 0.02;      % -   une bande à moins de 0,02 de son Clmax au dernier CL faisable : la limite
+                                   %     est son décrochage (grille des polaires : Cl par 0,005, Re par 20 000)
+% Variantes d'élevons (estimation du 15/10/2026, sans manip xflr5 ; elevons_variantes.m) : la 1re
+% est celle des T2. Même fin au saumon. Prolongement : 10 % de la demi-envergure vers l'emplanture.
+p.elv.nom       = ["T2 (25 %)" "30 %" "35 %" "35 % prolongés"];
+p.elv.charniere = [0.75 0.70 0.65 0.65];   % x/c
+p.elv.y0        = [0.25 0.25 0.25 0.25 - 0.10*p.geo.b/2];  % m  début des élevons
+p.elv.vr_fig    = -5;              % deg vrillage des figures (milieu de la matrice, choix d'affichage)
+p.elv.CL_fig    = [0.3 1.3 0.02];  % -   [début fin pas] de CL de la figure d'autorité (choix d'affichage)
+
+% Positions des composants, AVANT la CAO de la phase 5 : TOUTES HYPOTHÈSES,
+% à valider par l'utilisateur (arrêt A). Repère : origine au bord d'attaque de
+% l'emplanture, x vers l'arrière, y vers la droite, z vers le haut (repère xflr5).
+% Deux façons de placer un poste du budget (libellé exact de p.masse.postes) :
+%   "nacelle" : x absolu [m] dans la nacelle centrale (y = 0)
+%   "aile"    : réparti sur l'aile proportionnellement à la surface, au point
+%               x_BA(y) + k·c(y) (k = colonne x) ; ou ponctuel à ±y si y > 0
+% Le groupe propulsif est séparé en moteur et hélice + adaptateur (masses de p.gp).
+p.stab.pos = struct( ...
+    'poste', {"Panneaux d'aile LW-PLA (2 demi-ailes)", "Longeron carbone 8 mm + clé arrière 3 mm", ...
+              "Winglets + élevons", "Fuselage central PLA/PETG + trappe", ...
+              "Câblage, connecteurs, velcro, PCB d'interconnexion", "Contrôleur de vol", ...
+              "Raspberry Pi Zero 2 W + Camera Module 3 + microSD", "2 servos 9 g", "ESC 30 A", ...
+              "GPS M10 + compas", "Récepteur ELRS + antennes"}, ...
+    'mode',  {"aile", "aile", "aile", "nacelle", "nacelle", "nacelle", "nacelle", "aile", "nacelle", "nacelle", "nacelle"}, ...
+    'x',     {0.42,   0.25,   0.70,   0.13,      0.13,      0.12,      -0.03,     0.55,   0.13,      0.20,      0.22}, ...
+    'y',     {0,      0,      0.45,   0,         0,         0,         0,         0.30,   0,         0,         0}, ...
+    'z',     {0,      0,      0,      0,         0,         0.01,      0,         0,      0,         0.02,      0});
+% Décision du 13/10/2026 (arrêt A) : câblage + PCB et ESC avancés de 160 et 270 mm à 130 mm
+% (levier de V1-STAB-03) ; tout le reste inchangé. HYPOTHÈSES : l'ESC à 130 mm tombe au
+% même endroit que le fuselage (130) et près du contrôleur de vol (120) : place à vérifier
+% en CAO (phase 5) ; les fils de phase du moteur s'allongent d'autant.
+%   x : en m pour "nacelle" ; en fraction de corde locale (k) pour "aile"
+%   y = 0 et mode "aile" : masse répartie sur toute l'aile ; y > 0 : deux masses à ±y
+p.stab.x_moteur = 0.335;   % m  CG du moteur propulsif, monté au bord de fuite de l'emplanture (HYPOTHÈSE)
+p.stab.x_helice = 0.365;   % m  CG de l'hélice + adaptateur (HYPOTHÈSE)
+p.stab.z_moteur = 0.02;    % m  axe moteur au-dessus du plan de corde (HYPOTHÈSE ; garde au sol, phase 5)
+p.stab.garde_helice_y = 0.10;  % m  station de contrôle de la garde hélice / bord de fuite (décision du 13/10/2026)
+p.stab.Cm0_aile_min = 0;       % -  MOD-04 (validée le 13/10/2026) : Cm(CL = 0) de l'aile complète ≥ 0, sans braquage d'élevons
+p.stab.mod = ["MOD-04", "V1-STAB-01", "validée le 13/10/2026 (telle quelle)"
+              "MOD-05", "V1-STAB-03", "BROUILLON du 13/10/2026"];
+% Encombrement (contrainte pour la phase 5) : longueur de la batterie selon x, cellules 21700
+% couchées dans l'axe (utilisateur, 13/10/2026)
+p.batt.L_x = 0.070;            % m
 end

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE explane>
+<explane version="1.0">
+    <Units>
+        <length_unit_to_meter>1</length_unit_to_meter>
+        <mass_unit_to_kg>1</mass_unit_to_kg>
+    </Units>
+    <Plane>
+        <Name>V1_S5010_vr5_e0</Name>
+        <Description>Généré par MATLAB (stabilite.m) : flèche 27.0°, vrillage -5.0°, profil S5010</Description>
+        <Inertia>
+            <Point_Mass>
+                <Tag>Panneaux d'aile LW-PLA (2 demi-ailes)</Tag>
+                <Mass>0.190000</Mass>
+                <coordinates>0.223236, 0.000000, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Longeron carbone 8 mm + clé arrière 3 mm</Tag>
+                <Mass>0.030000</Mass>
+                <coordinates>0.179626, 0.000000, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Winglets + élevons (droite)</Tag>
+                <Mass>0.015000</Mass>
+                <coordinates>0.365086, 0.450000, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Winglets + élevons (gauche)</Tag>
+                <Mass>0.015000</Mass>
+                <coordinates>0.365086, -0.450000, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Fuselage central PLA/PETG + trappe</Tag>
+                <Mass>0.070000</Mass>
+                <coordinates>0.130000, 0.000000, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Câblage, connecteurs, velcro, PCB d'interconnexion</Tag>
+                <Mass>0.035000</Mass>
+                <coordinates>0.130000, 0.000000, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Contrôleur de vol</Tag>
+                <Mass>0.014300</Mass>
+                <coordinates>0.120000, 0.000000, 0.010000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Raspberry Pi Zero 2 W + Camera Module 3 + microSD</Tag>
+                <Mass>0.020000</Mass>
+                <coordinates>-0.030000, 0.000000, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>2 servos 9 g (droite)</Tag>
+                <Mass>0.009000</Mass>
+                <coordinates>0.282658, 0.300000, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>2 servos 9 g (gauche)</Tag>
+                <Mass>0.009000</Mass>
+                <coordinates>0.282658, -0.300000, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>ESC 30 A</Tag>
+                <Mass>0.009000</Mass>
+                <coordinates>0.130000, 0.000000, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>GPS M10 + compas</Tag>
+                <Mass>0.009000</Mass>
+                <coordinates>0.200000, 0.000000, 0.020000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Récepteur ELRS + antennes</Tag>
+                <Mass>0.003000</Mass>
+                <coordinates>0.220000, 0.000000, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Moteur X2212 V3</Tag>
+                <Mass>0.057000</Mass>
+                <coordinates>0.335000, 0.000000, 0.020000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Hélice + adaptateur</Tag>
+                <Mass>0.019891</Mass>
+                <coordinates>0.365000, 0.000000, 0.020000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Batterie 4S1P (position provisoire)</Tag>
+                <Mass>0.292000</Mass>
+                <coordinates>0.055463, 0.000000, 0.000000</coordinates>
+            </Point_Mass>
+        </Inertia>
+        <has_body>false</has_body>
+        <wing>
+            <Name>Main Wing</Name>
+            <Type>MAINWING</Type>
+            <Color>
+                <red>153</red>
+                <green>111</green>
+                <blue>165</blue>
+                <alpha>255</alpha>
+            </Color>
+            <Description></Description>
+            <Position>0.000000, 0.000000, 0.000000</Position>
+            <Tilt_angle>0.000</Tilt_angle>
+            <Symetric>true</Symetric>
+            <isFin>false</isFin>
+            <isDoubleFin>false</isDoubleFin>
+            <isSymFin>false</isSymFin>
+            <Inertia>
+                <Volume_Mass>0.000</Volume_Mass>
+            </Inertia>
+            <Sections>
+                <Section>
+                    <y_position>0.000000</y_position>
+                    <Chord>0.320000</Chord>
+                    <xOffset>0.000000</xOffset>
+                    <Dihedral>0.000</Dihedral>
+                    <Twist>-0.0000</Twist>
+                    <x_number_of_panels>13</x_number_of_panels>
+                    <x_panel_distribution>COSINE</x_panel_distribution>
+                    <y_number_of_panels>12</y_number_of_panels>
+                    <y_panel_distribution>COSINE</y_panel_distribution>
+                    <Left_Side_FoilName>S5010</Left_Side_FoilName>
+                    <Right_Side_FoilName>S5010</Right_Side_FoilName>
+                </Section>
+                <Section>
+                    <y_position>0.248000</y_position>
+                    <Chord>0.250560</Chord>
+                    <xOffset>0.126362</xOffset>
+                    <Dihedral>0.000</Dihedral>
+                    <Twist>-2.4800</Twist>
+                    <x_number_of_panels>13</x_number_of_panels>
+                    <x_panel_distribution>COSINE</x_panel_distribution>
+                    <y_number_of_panels>1</y_number_of_panels>
+                    <y_panel_distribution>COSINE</y_panel_distribution>
+                    <Left_Side_FoilName>S5010</Left_Side_FoilName>
+                    <Right_Side_FoilName>S5010</Right_Side_FoilName>
+                </Section>
+                <Section>
+                    <y_position>0.252000</y_position>
+                    <Chord>0.249440</Chord>
+                    <xOffset>0.128400</xOffset>
+                    <Dihedral>0.000</Dihedral>
+                    <Twist>-2.5200</Twist>
+                    <x_number_of_panels>13</x_number_of_panels>
+                    <x_panel_distribution>COSINE</x_panel_distribution>
+                    <y_number_of_panels>12</y_number_of_panels>
+                    <y_panel_distribution>COSINE</y_panel_distribution>
+                    <Left_Side_FoilName>S5010</Left_Side_FoilName>
+                    <Right_Side_FoilName>S5010</Right_Side_FoilName>
+                </Section>
+                <Section>
+                    <y_position>0.500000</y_position>
+                    <Chord>0.180000</Chord>
+                    <xOffset>0.254763</xOffset>
+                    <Dihedral>0.000</Dihedral>
+                    <Twist>-5.0000</Twist>
+                    <x_number_of_panels>13</x_number_of_panels>
+                    <x_panel_distribution>COSINE</x_panel_distribution>
+                    <y_number_of_panels>1</y_number_of_panels>
+                    <y_panel_distribution>COSINE</y_panel_distribution>
+                    <Left_Side_FoilName>S5010</Left_Side_FoilName>
+                    <Right_Side_FoilName>S5010</Right_Side_FoilName>
+                </Section>
+            </Sections>
+        </wing>
+        <wing>
+            <Name>Fin</Name>
+            <Type>FIN</Type>
+            <Color>
+                <red>171</red>
+                <green>137</green>
+                <blue>118</blue>
+                <alpha>255</alpha>
+            </Color>
+            <Description></Description>
+            <Position>0.254763, 0.500000, 0.000000</Position>
+            <Tilt_angle>-5.000</Tilt_angle>
+            <Symetric>true</Symetric>
+            <isFin>true</isFin>
+            <isDoubleFin>true</isDoubleFin>
+            <isSymFin>false</isSymFin>
+            <Inertia>
+                <Volume_Mass>0.000</Volume_Mass>
+            </Inertia>
+            <Sections>
+                <Section>
+                    <y_position>0.000000</y_position>
+                    <Chord>0.180000</Chord>
+                    <xOffset>0.000000</xOffset>
+                    <Dihedral>0.000</Dihedral>
+                    <Twist>0.0000</Twist>
+                    <x_number_of_panels>13</x_number_of_panels>
+                    <x_panel_distribution>COSINE</x_panel_distribution>
+                    <y_number_of_panels>7</y_number_of_panels>
+                    <y_panel_distribution>COSINE</y_panel_distribution>
+                    <Left_Side_FoilName>NACA 0008</Left_Side_FoilName>
+                    <Right_Side_FoilName>NACA 0008</Right_Side_FoilName>
+                </Section>
+                <Section>
+                    <y_position>0.100000</y_position>
+                    <Chord>0.090000</Chord>
+                    <xOffset>0.057735</xOffset>
+                    <Dihedral>0.000</Dihedral>
+                    <Twist>0.0000</Twist>
+                    <x_number_of_panels>13</x_number_of_panels>
+                    <x_panel_distribution>COSINE</x_panel_distribution>
+                    <y_number_of_panels>1</y_number_of_panels>
+                    <y_panel_distribution>COSINE</y_panel_distribution>
+                    <Left_Side_FoilName>NACA 0008</Left_Side_FoilName>
+                    <Right_Side_FoilName>NACA 0008</Right_Side_FoilName>
+                </Section>
+            </Sections>
+        </wing>
+    </Plane>
+</explane>
