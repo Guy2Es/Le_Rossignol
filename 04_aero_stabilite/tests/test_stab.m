@@ -250,6 +250,25 @@ assert(abs(R.Cm - (0.01 + 0.006*6*t1/t0 - 0.08*0.4 - 0.003*(m1/m0 - t1/t0)*(-6))
 [var, info] = variante_elevons(D, 0.65, 0.75, 0.125, 0.25, yb4, W4, 1);
 assert(max(abs(info.dwe - [0; 0.5; 0.5; 0])) < 1e-12 && abs(var.Ksec_ext - (-0.003)*m1/m0*0.5) < 1e-12, 'prolongement');
 assert(abs(sum(var.Aext .* D.c .* D.wy)) < 1e-12, 'prolongement à CL constant : ΣCl·c·wy = 0');
+% Traînée induite du prolongement (Trefftz) : nulle sans braquage ; sinon écart des deux répartitions
+var0 = variante_elevons(D, 0.65, 0.75, 0.25, 0.25, yb4, W4, 1);
+assert(isempty(var0.Ktr) && isequal(var.Ktr, W4.Ktr), 'Ktr avec prolongement seulement');
+Dv.var = var;
+R1 = cm_elevons(0, 0.4, 10, -5, "vlm", Dv);  R2 = cm_elevons(0, 0.4, 10, -5, "vlm", D);
+assert(R1.CDi == R2.CDi, 'sans braquage : pas de traînée du prolongement');
+R1 = cm_elevons(-6, 0.4, 10, -5, "vlm", Dv);
+k = base_vr_d(-5, R1.de, D.centre, D.echelle) * D.beta;
+Cl0 = D.A * [1; 0.4; -5; R1.de];
+assert(abs(R1.CDi - (k(3) + k(4)*0.4 + k(5)*0.16) - (W4.CDi(Cl0 + var.Aext*(-6)) - W4.CDi(Cl0))) < 1e-15, 'traînée induite du prolongement');
+% Polaires propres à la variante : pas de mise à l'échelle des incréments XFoil
+var0 = variante_elevons(D, 0.65, 0.75, 0.25, 0.25, yb4, W4, 1, true);
+assert(isequal(var0.kv, [1 1]), 'polaires propres : kv = [1 1]');
+% Cm0 du profil plus élevé : couple pur ΔCm0·Σc²·wy/(S·MAC) (= ΔCm0 ici), dans les 3 modèles
+Dz = D;  Dz.dCm0 = 0.01;
+for mo = ["vlm" "bandes" "complet"]
+    R1 = cm_elevons(-6, 0.4, 10, -5, mo, Dz);  R2 = cm_elevons(-6, 0.4, 10, -5, mo, D);
+    assert(abs(R1.Cm - R2.Cm - 0.01) < 1e-12, 'ΔCm0 (%s)', mo);
+end
 
 % CLmax équilibré : en VLM, butée de braquage atteinte au CL analytique ; avec les polaires, une
 % bande reste sous son Clmax au dernier CL faisable
@@ -270,6 +289,11 @@ assert(abs(-W.Cma / W.CLa - 0.25) < 1e-9, 'aile droite rectangulaire : foyer au 
 da = zeros(40, 1);  da(1:8) = 0.01;
 Ra = W.reponse(da);  Rb = W.reponse(flipud(da));  Rc = W.a_CL(da);
 assert(max(abs(Ra.Cl - flipud(Rb.Cl))) < 1e-12 && abs(Rc.CL) < 1e-12, 'symétrie et réponse à CL constant');
+% Traînée induite de Trefftz : répartition elliptique, CDi → CL²/(π·λ) (200 bandes : à 0,5 % près)
+W = weissinger(linspace(-b/2, b/2, 201).', @(y) cw + 0*y, @(y) 0*y, 0, b*cw, cw);
+Cl = sqrt(1 - (2*W.y/b).^2) ./ W.c;
+CL = sum(Cl .* W.c .* W.wy) / (b*cw);
+assert(abs(W.CDi(Cl) / (CL^2 / (pi * b/cw)) - 1) < 5e-3, 'Trefftz : répartition elliptique');
 
 %% Volet en profils minces : τ et moment de section au quart avant (maximal à 25 % de corde)
 [t, m] = volet_mince([0 0.5 0.75 1]);
@@ -277,3 +301,34 @@ assert(max(abs(t - [1, 0.5 + 1/pi, 1/3 + sqrt(3)/(2*pi), 0])) < 1e-12, 'τ = 1 �
 assert(abs(m(3) - (-0.5*sin(2*pi/3)*1.5*pi/180)) < 1e-15 && m(1) == 0 && abs(m(4)) < 1e-15, 'dCm/dδ');
 [~, m2] = volet_mince([0.74 0.76]);
 assert(all(abs(m2) < abs(m(3))), 'moment de section maximal à la charnière 0,75');
+
+%% Polaires d'un dossier : jeu complet des profils à volet (exports réels), manquantes listées
+d75 = fullfile(racine, p.xfl.dossier_pol_volet);
+[P, manque] = polaires_dossier(d75, compose("S5010 elv%d", [-9 -3]), [70000 430000], p.xfl.Ncrit);
+assert(isempty(manque) && P{1, 1}.Re == 70000 && P{2, 2}.Re == 430000 && P{2, 1}.profil == "S5010 elv-3", 'jeu complet');
+[P, manque] = polaires_dossier(d75, "S5010 elv-3", [50000 70000], p.xfl.Ncrit);
+assert(isequal(manque, "S5010 elv-3, Re 50000") && isempty(P{1}) && ~isempty(P{2}), 'polaire manquante listée');
+[~, manque] = polaires_dossier(fullfile(racine, "dossier_inexistant"), "S5010", 70000, p.xfl.Ncrit);
+assert(manque == "dossier absent", 'dossier absent');
+
+%% Masses en bandes (T7) : même masse et même CG que les masses centrées, inertie de roulis accrue
+bm  = budget_masse(p);
+mot = constantes_moteur(p.motX.KV, "motX", p);
+[~, gp] = masse_option(mot, [bm.total_3S bm.total_4S] / 1000, p);
+B = budget_reaffecte(gp, p);
+g = geometrie_aile(p, 27, -3.5);
+M0 = masses_composants(p, g, B, gp);
+M1 = masses_composants(p, g, B, gp, p.clo.n_bandes);
+assert(abs(sum(M1.m) - sum(M0.m)) < 1e-12 && abs(sum(M1.m .* M1.x) - sum(M0.m .* M0.x)) < 1e-12, 'masse et moment statique conservés');
+assert(abs(sum(M1.m .* M1.y)) < 1e-12 && sum(M1.m .* M1.y.^2) > sum(M0.m .* M0.y.^2), 'symétrie, Ixx accru');
+assert(all(abs(M1.y) <= p.geo.b/2), 'bandes dans l''envergure');
+%% Analyse de stabilité (T7) : même structure que le gabarit réel, type STABILITYPOLAR, non visqueuse
+dG = fullfile(racine, 'xflr5', 'gabarits');
+champs = @(s) sort(string(fieldnames(s)));
+f7 = [tempname '.xml'];
+ecrire_analyse_xml(f7, "T7-essai", "essai", struct('methode', "VLM2", 'rho', 1.225, 'nu', 1.46e-5, ...
+    'S', 0.25, 'b', 1, 'MAC', 0.2565, 'm', 0.8, 'cg', [0.15 0 0], 'visqueux', false, 'stabilite', true));
+G7 = readstruct(fullfile(dG, 'analyse_T7.xml'));  A7 = readstruct(f7);
+assert(isequal(champs(G7.Polar), champs(A7.Polar)) && isequal(champs(G7.Polar.Angle_gains), champs(A7.Polar.Angle_gains)), 'structure T7');
+assert(A7.Polar.Type == "STABILITYPOLAR" && A7.Polar.Viscous_Analysis == "false" && A7.Polar.Ignore_Body_Panels == "false", 'type et réglages T7');
+delete(f7);

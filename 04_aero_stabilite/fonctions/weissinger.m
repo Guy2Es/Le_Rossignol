@@ -14,8 +14,12 @@ function W = weissinger(yb, cf, xBAf, xref, S, MAC)
 %     W.ClA : Cl local pour α uniforme = 1 rad ; W.CLa, W.Cma : CL et Cm (à xref) par rad
 %     W.reponse(da) : [Cl, CL, Cm] pour une incidence locale da (n × 1, rad) ;
 %     W.a_CL(da)    : idem à CL constant (incidence d'ensemble réajustée)
+%     W.Ktr : n × n, incidence induite dans le plan de Trefftz (sillage plan, divisée par 2 :
+%             ligne portante) au milieu de chaque bande, αi = Ktr·(c.*Cl) ;
+%     W.CDi(Cl) : traînée induite d'une répartition de Cl locaux, Σ c·Cl·αi·wy / S
 %   HORS SKILL (méthode tourbillonnaire) : ne sert qu'à des rapports entre deux répartitions
-%   d'incidence (prolongement des élevons), recalés sur la VLM de xflr5.
+%   d'incidence (prolongement des élevons), recalés sur la VLM de xflr5, et à des écarts de
+%   traînée induite entre deux répartitions de portance.
 
 yb = yb(:);
 n = numel(yb) - 1;
@@ -35,6 +39,11 @@ integre = @(Cl) deal(sum(Cl .* W.c .* W.wy) / S, -sum(Cl .* W.c .* W.wy .* (W.xc
 [W.CLa, W.Cma] = integre(W.ClA);
 W.reponse = @(da) reponse(W.K * da, integre);
 W.a_CL = @(da) reponse(W.K * da - W.ClA * (sum((W.K * da) .* W.c .* W.wy) / S) / W.CLa, integre);
+% Trefftz : la bande j porte Γj = c·Cl/2 (V = 1) ; au bord e, tourbillon libre Γe − Γe−1
+% (bande e à droite du bord e) ; αi(y) = Σ (Γe − Γe−1) / (4π (y − ye))
+saut = eye(n + 1, n) - [zeros(1, n); eye(n)];
+W.Ktr = (1 ./ (ym - yb.')) * saut / (8 * pi);
+W.CDi = @(Cl) sum(W.c .* Cl .* (W.Ktr * (W.c .* Cl)) .* W.wy) / S;
 end
 
 function out = reponse(Cl, integre)

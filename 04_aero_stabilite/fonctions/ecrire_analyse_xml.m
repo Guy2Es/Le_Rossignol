@@ -7,13 +7,17 @@ function ecrire_analyse_xml(fichier, nom_polaire, nom_avion, a)
 %       S [m²], b [m], MAC [m] (dimensions de référence, projetées),
 %       m [kg], cg [x y z] [m] (pour information : l'inertie du plan est utilisée),
 %       visqueux (logique, facultatif, vrai par défaut : faux = VLM non visqueuse,
-%       qui ne lit aucune polaire 2D et ne rejette donc aucun point)
+%       qui ne lit aucune polaire 2D et ne rejette donc aucun point),
+%       stabilite (logique, facultatif, faux par défaut : vrai = polaire de stabilité
+%       STABILITYPOLAR, gabarit analyse_T7.xml ; gains de commande nuls, le braquage des
+%       élevons étant porté par le profil)
 %   Schéma relevé sur l'export réel de l'utilisateur (xflr5/gabarits/analyse_T2.xml) ;
 %   seuls changent : noms, méthode, densité, viscosité, références et inertie.
 %   La plage d'alpha ne fait pas partie de l'analyse : elle se saisit dans xflr5.
 
 assert(ismember(a.methode, ["VLM1" "VLM2"]), 'ecrire_analyse_xml:methode', 'méthode inconnue : %s', a.methode);
 visqueux = ~isfield(a, 'visqueux') || a.visqueux;
+stabilite = isfield(a, 'stabilite') && a.stabilite;
 fid = fopen(fichier, 'w', 'n', 'UTF-8');
 assert(fid > 0, 'ecrire_analyse_xml:ouverture', 'impossible d''écrire %s', fichier);
 nettoie = onCleanup(@() fclose(fid));
@@ -23,9 +27,10 @@ fprintf(fid, ['    <Units>\n        <length_unit_to_meter>1</length_unit_to_mete
               '        <mass_unit_to_kg>1</mass_unit_to_kg>\n        <speed_unit_to_ms>1</speed_unit_to_ms>\n' ...
               '        <inertia_unit_to_kgm2>1</inertia_unit_to_kgm2>\n    </Units>\n']);
 fprintf(fid, '    <Polar>\n        <Polar_Name>%s</Polar_Name>\n        <Plane_Name>%s</Plane_Name>\n', nom_polaire, nom_avion);
-fprintf(fid, ['        <Type>FIXEDLIFTPOLAR</Type>\n        <Method>PANELMETHOD</Method>\n        <Ignore_Body_Panels>true</Ignore_Body_Panels>\n' ...
+fprintf(fid, ['        <Type>%s</Type>\n        <Method>PANELMETHOD</Method>\n        <Ignore_Body_Panels>%s</Ignore_Body_Panels>\n' ...
               '        <Use_VLM1>%s</Use_VLM1>\n        <Viscous_Analysis>%s</Viscous_Analysis>\n        <Thin_Surfaces>true</Thin_Surfaces>\n' ...
               '        <Tilted_Analysis>false</Tilted_Analysis>\n        <Ground_Effect>false</Ground_Effect>\n        <Ground_Height>0.00000</Ground_Height>\n'], ...
+        ternaire(stabilite, 'STABILITYPOLAR', 'FIXEDLIFTPOLAR'), ternaire(stabilite, 'false', 'true'), ...
         ternaire(a.methode == "VLM1", 'true', 'false'), ternaire(visqueux, 'true', 'false'));
 fprintf(fid, '        <Viscosity>%.5e</Viscosity>\n        <Density>%.5f</Density>\n', a.nu, a.rho);
 fprintf(fid, ['        <Fixed_Velocity>10.00000</Fixed_Velocity>\n        <Fixed_AOA>0.00000</Fixed_AOA>\n' ...
@@ -42,7 +47,12 @@ fprintf(fid, ['        <Inertia_Value>\n            <Mass>%.5f</Mass>\n         
               '            <CoG_Ixz>0.00000</CoG_Ixz>\n        </Inertia_Value>\n'], a.m, a.cg);
 fprintf(fid, ['        <Inertia_gains>\n            <Mass_gain>0.00000</Mass_gain>\n            <CoG_x_gain>0.00000</CoG_x_gain>\n' ...
               '            <CoG_z_gain>0.00000</CoG_z_gain>\n            <Ixx_gain>0.00000</Ixx_gain>\n            <Iyy_gain>0.00000</Iyy_gain>\n' ...
-              '            <Izz_gain>0.00000</Izz_gain>\n            <Ixz_gain>0.00000</Ixz_gain>\n        </Inertia_gains>\n        <Angle_gains/>\n']);
+              '            <Izz_gain>0.00000</Izz_gain>\n            <Ixz_gain>0.00000</Ixz_gain>\n        </Inertia_gains>\n']);
+if stabilite
+    fprintf(fid, '        <Angle_gains>\n            <Gain_1>0.00000</Gain_1>\n            <Gain_2>0.00000</Gain_2>\n        </Angle_gains>\n');
+else
+    fprintf(fid, '        <Angle_gains/>\n');
+end
 fprintf(fid, '    </Polar>\n</Plane_Polar>\n');
 end
 

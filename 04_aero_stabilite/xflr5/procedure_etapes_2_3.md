@@ -185,6 +185,106 @@ Soit 4 polaires et 8 Cl local. Quand c'est fait, dis « exports élevons faits �
 5. **Traînée et efficacité :** les polaires des profils à volet (−3, −6, −9°) corrigent en bandes le Cm et la traînée de profil des élevons. C'est le même principe que la section C1, sauf si C2 montre que xflr5 le fait déjà.
 6. **Si aucun vrillage ne tient la fenêtre dans les 4 configurations : arrêt.** Je montre le braquage requis par configuration, sans toucher ni aux seuils ni à la marge statique. Guilhem choisit alors entre un réflexe fixe sur la partie centrale, une fenêtre plus large, ou une marge statique de premier vol à 8 % seulement.
 
+## F. Profils S5010 à charnière 65 % et leurs polaires XFoil (15/10/2026, sans T2)
+
+**But :** remplacer les polaires empruntées à la charnière de 75 % par les vraies polaires des élevons retenus (35 % de corde), jusqu'à 20° vers le haut. Tous les cas d'autorité et la croisière à 40 km/h sortent aujourd'hui des polaires mesurées : au-delà de −9°, MATLAB prolonge linéairement.
+
+### F1. Les six profils à volet
+
+1. Module **Foil Direct Design**. Sélectionne le **S5010 de base**, déjà raffiné à 200 panneaux à l'étape 1 : pas de second raffinement.
+2. Ouvre la commande **Set Flap**, comme en E1 :
+   - case **T.E. Flap** cochée ;
+   - charnière à **65 %** de la corde en x, et à **50 %** de l'épaisseur en y ;
+   - angle **−3°** (bord de fuite vers le haut).
+3. Nomme le nouveau profil **exactement** `S5010 c65 elv-3`, avec deux espaces et un tiret.
+4. Recommence **toujours à partir du S5010 de base**, sinon les braquages s'additionnent :
+
+   | Angle | Nom |
+   | --- | --- |
+   | −6° | `S5010 c65 elv-6` |
+   | −9° | `S5010 c65 elv-9` |
+   | −12° | `S5010 c65 elv-12` |
+   | −15° | `S5010 c65 elv-15` |
+   | −20° | `S5010 c65 elv-20` |
+
+5. **Contrôle (facultatif, conseillé) :** exporte chaque profil en .dat (`Foil > Export`) dans `04_aero_stabilite/profils/`, sous les noms `s5010_c65_elv-3.dat`, …, `s5010_c65_elv-20.dat`. MATLAB mesure le braquage sur la ligne moyenne derrière la charnière et le compare à l'angle demandé.
+
+### F2. Les polaires XFoil
+
+Module **XFoil Direct Analysis**, `Analysis > Multi-threaded Batch Analysis`, sur ces **six profils seulement** :
+- le **même lot de Re qu'à l'étape 1**, soit les 19 Re de 70 000 à 430 000 par pas de 20 000 ;
+- T1, Ncrit 9, transitions 1 et 1 ;
+- α de **−6 à 20°** par pas de 0,5. C'est **20° au lieu de 14°** : à −9° avec la charnière à 75 %, le Cl maximal tombait déjà au dernier α dès Re 250 000, ce qui ne donne qu'une borne basse du Clmax. Avec des braquages plus forts, le décrochage recule encore ;
+- « From Zero » coché et « Initialize BLs between polars » coché.
+
+Les points non convergés à bas Re et aux grands α sont normaux. **Signale-moi une polaire vide**, ou une polaire qui n'a que quelques points.
+
+### F3. Export
+
+Exporte toutes les polaires au format texte (.txt) dans un **nouveau dossier**, `xflr5/exports/polaires_volet_c65/`. Si « Export All Polars » emporte les polaires d'autres profils, ce n'est pas grave : MATLAB ne garde que les profils `S5010 c65 elv-…`. Le profil de base (δ = 0) est repris des polaires de l'étape 1.
+
+Quand c'est fait, dis « polaires c65 faites ».
+
+### F4. Ce que MATLAB en tire
+
+`verdict_elevons.m` reconnaît le jeu complet (6 profils × 19 Re = 114 polaires, contrôle de Ncrit, de Mach et de la transition) et l'utilise à la place des polaires empruntées. Il garde la même mise à l'échelle VLM des élevons des T2 (profils minces), mais sans multiplier les incréments XFoil. S'il manque des polaires, il les liste et reste sur les polaires empruntées. Le verdict est ensuite recalculé : autorité, choix du vrillage, V1-PERF-01, 03 à 05 et 07, et estimation à 150 mm.
+
+## G. Clôture : T2 de contrôle de la géométrie retenue (15/10/2026)
+
+**But :** vérifier avec une vraie VLM la part non visqueuse du modèle des élevons retenus, c'est-à-dire le prolongement depuis 200 mm (Weissinger recalé, κ) et la corde de 35 %. Ce contrôle ne dépend pas des polaires XFoil.
+
+**Fichiers** dans `xflr5/genere/`, générés par `cloture_phase4.m` :
+
+| Avion | Vrillage | Élevons (depuis y = 200 mm) |
+| --- | --- | --- |
+| `avion_V1_S5010_vr35_c65_e0.xml` + `analyse_T2inv_V1_S5010_vr35_c65_e0.xml` | −3,5° | profil `S5010` (δ = 0, effet du maillage seul) |
+| `avion_V1_S5010_vr35_c65_e6.xml` + `analyse_T2inv_V1_S5010_vr35_c65_e6.xml` | −3,5° | profil `S5010 c65 elv-6` |
+
+Pour chaque avion, même déroulé qu'en E2 :
+1. **Import** de l'avion puis de l'analyse (XML). Dans la vue 3D, les élevons relevés doivent commencer à 200 mm de l'axe, et non plus à 250 mm.
+2. **Contrôles :** TipTwist −3,5° ; Wing Span 1,000 m ; Wing Area 0,250 m² ; `CoG_x= 0.1565 m`.
+3. **Analyse** `T2inv-VLM2` : **Viscous décochée**, α de **−2 à 14°**, pas de 0,5.
+
+**Exports** dans un **nouveau dossier**, `xflr5/exports/T2/cloture/` :
+- la polaire de chaque avion (.txt) ;
+- le point de fonctionnement complet à **α = 6,0°** et **α = 14,0°**, comme en E3.
+
+Cela fait 2 polaires et 4 points de fonctionnement. Quand c'est fait, dis « T2 clôture faits ».
+
+## H. T7 : modes dynamiques de V1-STAB-04 (16/10/2026, option 1)
+
+**But :** ζ de l'oscillation d'incidence, ζ du roulis hollandais et T2 de la spirale, pour les 4 avions (3S/4S × MS 8/10 %). Le braquage est porté par le profil `S5010 c65 elv-3` : l'avion est figé, xflr5 l'équilibre sur son Cm VLM et calcule les modes autour de cet équilibre.
+
+**Fichiers** dans `xflr5/genere/`, générés par `t7_phase4.m` (avion + analyse de même suffixe) :
+
+| Avion | Masse | CG | V d'équilibre attendue dans xflr5 |
+| --- | --- | --- | --- |
+| `V1_S5010_vr35_T7_3S_MS8_d3` | 728,2 g | 154,2 mm | 43,9 km/h |
+| `V1_S5010_vr35_T7_3S_MS10_d3` | 728,2 g | 149,1 mm | 48,5 km/h |
+| `V1_S5010_vr35_T7_4S_MS8_d3` | 797,2 g | 154,2 mm | 45,9 km/h |
+| `V1_S5010_vr35_T7_4S_MS10_d3` | 797,2 g | 149,1 mm | 50,7 km/h |
+
+(`resultats/tableaux_T7_avions.md` donne aussi la batterie et les inerties de la table de masses.)
+
+Pour chaque avion :
+1. **Import** de l'avion (XML), puis de l'analyse (XML) : c'est une *Stability polar* `T7-VLM2`, **Viscous décochée**.
+2. **Contrôles avant de lancer :** TipTwist −3,5° ; Wing Span 1,000 m ; Wing Area 0,250 m² ; `CoG_x` et masse du tableau ci-dessus ; **Use plane inertia** coché ; les élevons commencent à 200 mm de l'axe ; profil des élevons `S5010 c65 elv-3`.
+3. **Commande :** les gains sont à 0 (le braquage est dans le profil). Si xflr5 demande une plage de commande, mets **début = fin = 0** (un seul point).
+4. **Analyse :** lance-la. xflr5 doit trouver un équilibre (α, V). Note la vitesse affichée : elle doit tomber près de la vitesse attendue du tableau (écart attendu de quelques km/h au plus ; sinon dis-le-moi avant d'aller plus loin).
+5. **Modes :** ouvre la vue des modes de la polaire et vérifie qu'il y a 4 modes longitudinaux (oscillation d'incidence, phugoïde) et 4 modes latéraux (roulis hollandais, roulis pur, spirale).
+
+**Exports** dans un **nouveau dossier**, `xflr5/exports/T7/` :
+- la polaire de stabilité de chaque avion (.txt) : clic droit sur la polaire dans l'arbre, *Export* ;
+- les valeurs propres : dans la vue des modes, le tableau des valeurs propres (partie réelle et imaginaire) de chaque mode, copié ou exporté en .txt (nom `<avion>_modes.txt`) ;
+- une capture d'écran de la vue des modes si le tableau ne s'exporte pas.
+
+Cela fait 4 polaires et 4 tableaux de modes. Quand c'est fait, dis « T7 faits ». Je ne devine pas le format : j'écris le lecteur sur ton premier export réel, comme pour le T2.
+
+**Limites à garder en tête (HORS SKILL) :**
+- La VLM équilibre l'avion sur son propre point neutre, à 177,5 mm, et non à 174,7 mm (point neutre visqueux) : xflr5 voit une MS supérieure d'environ 1,1 point à celle de l'avion réel (9,1 % et 11,1 % au lieu de 8 et 10 %). Cela rend l'oscillation d'incidence un peu plus amortie qu'en réel.
+- xflr5 équilibre le T7 à profil figé : le braquage de −3° n'est pas celui de l'avion réel, qui est à environ −6° à ces vitesses.
+- L'analyse est non visqueuse : le CD0 de la polaire ne contient pas la traînée de profil, ce qui peut changer l'amortissement du roulis et de la spirale. À signaler dans le verdict.
+
 ## 3 À préciser après l'arrêt B
 
-- T7 sur 4 avions (3S/4S × MS 8/10 %) au vrillage choisi : gabarit T7 avec élevons. Il faudra un profil à volet au neutre (Set Flap à 0°), pour que xflr5 reconnaisse le volet comme une commande et balaye le braquage symétrique.
+- T7 : voir la section H ci-dessus (fait le 16/10/2026).

@@ -20,8 +20,11 @@ function R = cm_elevons(dg, CL, V, vr, mode, D)
 %            T (table_polaires_volet), Cm_mince, dCm_dd (/deg), tau ; S, MAC, nu
 %            D.var (facultatif, variante_elevons) : élevons autres que ceux des T2 ; sans
 %            ce champ, les élevons sont ceux des T2.
+%            D.dCm0 (facultatif) : écart de Cm0 du profil, le même sur toutes les bandes de
+%            l'aile (couple pur ajouté au Cm, estimation)
 %   Sortie : R.Cm (au point de référence des T2), R.de (braquage efficace des élevons des
-%   T2), R.CDi, R.CDp (traînée de profil de l'aile, intégrée en bandes ; NaN en "vlm"),
+%   T2), R.CDi (VLM, plus la traînée induite du Cl du prolongement par Trefftz si D.var.Ktr),
+%   R.CDp (traînée de profil de l'aile, intégrée en bandes ; NaN en "vlm"),
 %   R.Cl (bandes), R.dCm (correction visqueuse en bandes), R.eta_a (Δα XFoil / profils
 %   minces sur les élevons), R.eta_m (ΔCm de section XFoil / profils minces), R.ext
 %   (braquage hors des polaires à volet), R.marge (Clmax − Cl de chaque bande, hors "vlm").
@@ -31,7 +34,7 @@ if isfield(D, 'var')
     W = D.var;
 else
     W = struct('rt', 1, 'rm', 1, 'tau', D.tau, 'dCm_dd', D.dCm_dd, 'we', D.we, ...
-               'Aext', zeros(size(D.c)), 'Cmext', 0, 'Ksec_ext', 0, 'kv', [1 1]);
+               'Aext', zeros(size(D.c)), 'Cmext', 0, 'Ksec_ext', 0, 'Ktr', [], 'kv', [1 1]);
 end
 R = struct('dg', dg, 'de', W.rt * dg, 'Cm', NaN, 'CDi', NaN, 'CDp', NaN, 'Cl', [], 'dCm', 0, ...
            'eta_a', NaN, 'eta_m', NaN, 'ext', false, 'marge', []);
@@ -71,5 +74,13 @@ if mode ~= "vlm"
 end
 k = base_vr_d(vr, R.de, D.centre, D.echelle) * D.beta;
 R.Cm = k(1) + k(2) * CL + R.dCm + D.Ksec * (W.rm * dg - R.de) + (W.Cmext * eta + W.Ksec_ext) * dg;
+if isfield(D, 'dCm0')
+    R.Cm = R.Cm + D.dCm0 * sum(D.c.^2 .* D.wy) / (D.S * D.MAC);
+end
 R.CDi = k(3) + k(4) * CL + k(5) * CL^2;
+if ~isempty(W.Ktr) && dg ~= 0                          % prolongement : écart de traînée induite (Trefftz)
+    g0 = D.c .* (D.A * [1; CL; vr; R.de]);
+    g1 = g0 + D.c .* (W.Aext * (eta * dg));
+    R.CDi = R.CDi + sum((g1 .* (W.Ktr * g1) - g0 .* (W.Ktr * g0)) .* D.wy) / D.S;
+end
 end

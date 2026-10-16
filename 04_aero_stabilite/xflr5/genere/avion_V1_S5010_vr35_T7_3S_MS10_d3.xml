@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE explane>
+<explane version="1.0">
+    <Units>
+        <length_unit_to_meter>1</length_unit_to_meter>
+        <mass_unit_to_kg>1</mass_unit_to_kg>
+    </Units>
+    <Plane>
+        <Name>V1_S5010_vr35_T7_3S_MS10_d3</Name>
+        <Description>Généré par MATLAB (stabilite.m) : flèche 27.0°, vrillage -3.5°, profil S5010</Description>
+        <Inertia>
+            <Point_Mass>
+                <Tag>Panneaux d'aile LW-PLA (2 demi-ailes) (bande 1 droite)</Tag>
+                <Mass>0.011894</Mass>
+                <coordinates>0.144125, 0.024814, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Panneaux d'aile LW-PLA (2 demi-ailes) (bande 2 droite)</Tag>
+                <Mass>0.011362</Mass>
+                <coordinates>0.163718, 0.074805, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Panneaux d'aile LW-PLA (2 demi-ailes) (bande 3 droite)</Tag>
+                <Mass>0.010830</Mass>
+                <coordinates>0.183310, 0.124795, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Panneaux d'aile LW-PLA (2 demi-ailes) (bande 4 droite)</Tag>
+                <Mass>0.010298</Mass>
+                <coordinates>0.202903, 0.174785, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Panneaux d'aile LW-PLA (2 demi-ailes) (bande 5 droite)</Tag>
+                <Mass>0.009766</Mass>
+                <coordinates>0.222494, 0.224773, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Panneaux d'aile LW-PLA (2 demi-ailes) (bande 6 droite)</Tag>
+                <Mass>0.009234</Mass>
+                <coordinates>0.242085, 0.274760, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Panneaux d'aile LW-PLA (2 demi-ailes) (bande 7 droite)</Tag>
+                <Mass>0.008702</Mass>
+                <coordinates>0.261676, 0.324745, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Panneaux d'aile LW-PLA (2 demi-ailes) (bande 8 droite)</Tag>
+                <Mass>0.008170</Mass>
+                <coordinates>0.281266, 0.374729, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Panneaux d'aile LW-PLA (2 demi-ailes) (bande 9 droite)</Tag>
+                <Mass>0.007638</Mass>
+                <coordinates>0.300855, 0.424710, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Panneaux d'aile LW-PLA (2 demi-ailes) (bande 10 droite)</Tag>
+                <Mass>0.007106</Mass>
+                <coordinates>0.320442, 0.474688, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Panneaux d'aile LW-PLA (2 demi-ailes) (bande 1 gauche)</Tag>
+                <Mass>0.011894</Mass>
+                <coordinates>0.144125, -0.024814, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Panneaux d'aile LW-PLA (2 demi-ailes) (bande 2 gauche)</Tag>
+                <Mass>0.011362</Mass>
+                <coordinates>0.163718, -0.074805, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Panneaux d'aile LW-PLA (2 demi-ailes) (bande 3 gauche)</Tag>
+                <Mass>0.010830</Mass>
+                <coordinates>0.183310, -0.124795, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Panneaux d'aile LW-PLA (2 demi-ailes) (bande 4 gauche)</Tag>
+                <Mass>0.010298</Mass>
+                <coordinates>0.202903, -0.174785, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Panneaux d'aile LW-PLA (2 demi-ailes) (bande 5 gauche)</Tag>
+                <Mass>0.009766</Mass>
+                <coordinates>0.222494, -0.224773, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Panneaux d'aile LW-PLA (2 demi-ailes) (bande 6 gauche)</Tag>
+                <Mass>0.009234</Mass>
+                <coordinates>0.242085, -0.274760, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Panneaux d'aile LW-PLA (2 demi-ailes) (bande 7 gauche)</Tag>
+                <Mass>0.008702</Mass>
+                <coordinates>0.261676, -0.324745, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Panneaux d'aile LW-PLA (2 demi-ailes) (bande 8 gauche)</Tag>
+                <Mass>0.008170</Mass>
+                <coordinates>0.281266, -0.374729, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Panneaux d'aile LW-PLA (2 demi-ailes) (bande 9 gauche)</Tag>
+                <Mass>0.007638</Mass>
+                <coordinates>0.300855, -0.424710, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Panneaux d'aile LW-PLA (2 demi-ailes) (bande 10 gauche)</Tag>
+                <Mass>0.007106</Mass>
+                <coordinates>0.320442, -0.474688, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Longeron carbone 8 mm + clé arrière 3 mm (bande 1 droite)</Tag>
+                <Mass>0.001878</Mass>
+                <coordinates>0.090906, 0.024814, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Longeron carbone 8 mm + clé arrière 3 mm (bande 2 droite)</Tag>
+                <Mass>0.001794</Mass>
+                <coordinates>0.112879, 0.074805, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Longeron carbone 8 mm + clé arrière 3 mm (bande 3 droite)</Tag>
+                <Mass>0.001710</Mass>
+                <coordinates>0.134851, 0.124795, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Longeron carbone 8 mm + clé arrière 3 mm (bande 4 droite)</Tag>
+                <Mass>0.001626</Mass>
+                <coordinates>0.156822, 0.174785, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Longeron carbone 8 mm + clé arrière 3 mm (bande 5 droite)</Tag>
+                <Mass>0.001542</Mass>
+                <coordinates>0.178793, 0.224773, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Longeron carbone 8 mm + clé arrière 3 mm (bande 6 droite)</Tag>
+                <Mass>0.001458</Mass>
+                <coordinates>0.200764, 0.274760, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Longeron carbone 8 mm + clé arrière 3 mm (bande 7 droite)</Tag>
+                <Mass>0.001374</Mass>
+                <coordinates>0.222734, 0.324745, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Longeron carbone 8 mm + clé arrière 3 mm (bande 8 droite)</Tag>
+                <Mass>0.001290</Mass>
+                <coordinates>0.244703, 0.374729, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Longeron carbone 8 mm + clé arrière 3 mm (bande 9 droite)</Tag>
+                <Mass>0.001206</Mass>
+                <coordinates>0.266671, 0.424710, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Longeron carbone 8 mm + clé arrière 3 mm (bande 10 droite)</Tag>
+                <Mass>0.001122</Mass>
+                <coordinates>0.288637, 0.474688, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Longeron carbone 8 mm + clé arrière 3 mm (bande 1 gauche)</Tag>
+                <Mass>0.001878</Mass>
+                <coordinates>0.090906, -0.024814, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Longeron carbone 8 mm + clé arrière 3 mm (bande 2 gauche)</Tag>
+                <Mass>0.001794</Mass>
+                <coordinates>0.112879, -0.074805, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Longeron carbone 8 mm + clé arrière 3 mm (bande 3 gauche)</Tag>
+                <Mass>0.001710</Mass>
+                <coordinates>0.134851, -0.124795, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Longeron carbone 8 mm + clé arrière 3 mm (bande 4 gauche)</Tag>
+                <Mass>0.001626</Mass>
+                <coordinates>0.156822, -0.174785, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Longeron carbone 8 mm + clé arrière 3 mm (bande 5 gauche)</Tag>
+                <Mass>0.001542</Mass>
+                <coordinates>0.178793, -0.224773, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Longeron carbone 8 mm + clé arrière 3 mm (bande 6 gauche)</Tag>
+                <Mass>0.001458</Mass>
+                <coordinates>0.200764, -0.274760, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Longeron carbone 8 mm + clé arrière 3 mm (bande 7 gauche)</Tag>
+                <Mass>0.001374</Mass>
+                <coordinates>0.222734, -0.324745, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Longeron carbone 8 mm + clé arrière 3 mm (bande 8 gauche)</Tag>
+                <Mass>0.001290</Mass>
+                <coordinates>0.244703, -0.374729, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Longeron carbone 8 mm + clé arrière 3 mm (bande 9 gauche)</Tag>
+                <Mass>0.001206</Mass>
+                <coordinates>0.266671, -0.424710, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Longeron carbone 8 mm + clé arrière 3 mm (bande 10 gauche)</Tag>
+                <Mass>0.001122</Mass>
+                <coordinates>0.288637, -0.474688, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Winglets + élevons (droite)</Tag>
+                <Mass>0.015000</Mass>
+                <coordinates>0.365086, 0.450000, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Winglets + élevons (gauche)</Tag>
+                <Mass>0.015000</Mass>
+                <coordinates>0.365086, -0.450000, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Fuselage central PLA/PETG + trappe</Tag>
+                <Mass>0.070000</Mass>
+                <coordinates>0.130000, 0.000000, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Câblage, connecteurs, velcro, PCB d'interconnexion</Tag>
+                <Mass>0.035000</Mass>
+                <coordinates>0.130000, 0.000000, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Contrôleur de vol</Tag>
+                <Mass>0.014300</Mass>
+                <coordinates>0.120000, 0.000000, 0.010000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Raspberry Pi Zero 2 W + Camera Module 3 + microSD</Tag>
+                <Mass>0.020000</Mass>
+                <coordinates>-0.030000, 0.000000, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>2 servos 9 g (droite)</Tag>
+                <Mass>0.009000</Mass>
+                <coordinates>0.282658, 0.300000, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>2 servos 9 g (gauche)</Tag>
+                <Mass>0.009000</Mass>
+                <coordinates>0.282658, -0.300000, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>ESC 30 A</Tag>
+                <Mass>0.009000</Mass>
+                <coordinates>0.130000, 0.000000, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>GPS M10 + compas</Tag>
+                <Mass>0.009000</Mass>
+                <coordinates>0.200000, 0.000000, 0.020000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Récepteur ELRS + antennes</Tag>
+                <Mass>0.003000</Mass>
+                <coordinates>0.220000, 0.000000, 0.000000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Moteur X2212 V3</Tag>
+                <Mass>0.057000</Mass>
+                <coordinates>0.335000, 0.000000, 0.020000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Hélice + adaptateur</Tag>
+                <Mass>0.019891</Mass>
+                <coordinates>0.365000, 0.000000, 0.020000</coordinates>
+            </Point_Mass>
+            <Point_Mass>
+                <Tag>Batterie 3S1P</Tag>
+                <Mass>0.223000</Mass>
+                <coordinates>-0.000214, 0.000000, 0.000000</coordinates>
+            </Point_Mass>
+        </Inertia>
+        <has_body>false</has_body>
+        <wing>
+            <Name>Main Wing</Name>
+            <Type>MAINWING</Type>
+            <Color>
+                <red>153</red>
+                <green>111</green>
+                <blue>165</blue>
+                <alpha>255</alpha>
+            </Color>
+            <Description></Description>
+            <Position>0.000000, 0.000000, 0.000000</Position>
+            <Tilt_angle>0.000</Tilt_angle>
+            <Symetric>true</Symetric>
+            <isFin>false</isFin>
+            <isDoubleFin>false</isDoubleFin>
+            <isSymFin>false</isSymFin>
+            <Inertia>
+                <Volume_Mass>0.000</Volume_Mass>
+            </Inertia>
+            <Sections>
+                <Section>
+                    <y_position>0.000000</y_position>
+                    <Chord>0.320000</Chord>
+                    <xOffset>0.000000</xOffset>
+                    <Dihedral>0.000</Dihedral>
+                    <Twist>-0.0000</Twist>
+                    <x_number_of_panels>13</x_number_of_panels>
+                    <x_panel_distribution>COSINE</x_panel_distribution>
+                    <y_number_of_panels>12</y_number_of_panels>
+                    <y_panel_distribution>COSINE</y_panel_distribution>
+                    <Left_Side_FoilName>S5010</Left_Side_FoilName>
+                    <Right_Side_FoilName>S5010</Right_Side_FoilName>
+                </Section>
+                <Section>
+                    <y_position>0.198000</y_position>
+                    <Chord>0.264560</Chord>
+                    <xOffset>0.100886</xOffset>
+                    <Dihedral>0.000</Dihedral>
+                    <Twist>-1.3860</Twist>
+                    <x_number_of_panels>13</x_number_of_panels>
+                    <x_panel_distribution>COSINE</x_panel_distribution>
+                    <y_number_of_panels>1</y_number_of_panels>
+                    <y_panel_distribution>COSINE</y_panel_distribution>
+                    <Left_Side_FoilName>S5010</Left_Side_FoilName>
+                    <Right_Side_FoilName>S5010</Right_Side_FoilName>
+                </Section>
+                <Section>
+                    <y_position>0.202000</y_position>
+                    <Chord>0.263440</Chord>
+                    <xOffset>0.102924</xOffset>
+                    <Dihedral>0.000</Dihedral>
+                    <Twist>-1.4140</Twist>
+                    <x_number_of_panels>13</x_number_of_panels>
+                    <x_panel_distribution>COSINE</x_panel_distribution>
+                    <y_number_of_panels>12</y_number_of_panels>
+                    <y_panel_distribution>COSINE</y_panel_distribution>
+                    <Left_Side_FoilName>S5010 c65 elv-3</Left_Side_FoilName>
+                    <Right_Side_FoilName>S5010 c65 elv-3</Right_Side_FoilName>
+                </Section>
+                <Section>
+                    <y_position>0.500000</y_position>
+                    <Chord>0.180000</Chord>
+                    <xOffset>0.254763</xOffset>
+                    <Dihedral>0.000</Dihedral>
+                    <Twist>-3.5000</Twist>
+                    <x_number_of_panels>13</x_number_of_panels>
+                    <x_panel_distribution>COSINE</x_panel_distribution>
+                    <y_number_of_panels>1</y_number_of_panels>
+                    <y_panel_distribution>COSINE</y_panel_distribution>
+                    <Left_Side_FoilName>S5010 c65 elv-3</Left_Side_FoilName>
+                    <Right_Side_FoilName>S5010 c65 elv-3</Right_Side_FoilName>
+                </Section>
+            </Sections>
+        </wing>
+        <wing>
+            <Name>Fin</Name>
+            <Type>FIN</Type>
+            <Color>
+                <red>171</red>
+                <green>137</green>
+                <blue>118</blue>
+                <alpha>255</alpha>
+            </Color>
+            <Description></Description>
+            <Position>0.254763, 0.500000, 0.000000</Position>
+            <Tilt_angle>-3.500</Tilt_angle>
+            <Symetric>true</Symetric>
+            <isFin>true</isFin>
+            <isDoubleFin>true</isDoubleFin>
+            <isSymFin>false</isSymFin>
+            <Inertia>
+                <Volume_Mass>0.000</Volume_Mass>
+            </Inertia>
+            <Sections>
+                <Section>
+                    <y_position>0.000000</y_position>
+                    <Chord>0.180000</Chord>
+                    <xOffset>0.000000</xOffset>
+                    <Dihedral>0.000</Dihedral>
+                    <Twist>0.0000</Twist>
+                    <x_number_of_panels>13</x_number_of_panels>
+                    <x_panel_distribution>COSINE</x_panel_distribution>
+                    <y_number_of_panels>7</y_number_of_panels>
+                    <y_panel_distribution>COSINE</y_panel_distribution>
+                    <Left_Side_FoilName>NACA 0008</Left_Side_FoilName>
+                    <Right_Side_FoilName>NACA 0008</Right_Side_FoilName>
+                </Section>
+                <Section>
+                    <y_position>0.100000</y_position>
+                    <Chord>0.090000</Chord>
+                    <xOffset>0.057735</xOffset>
+                    <Dihedral>0.000</Dihedral>
+                    <Twist>0.0000</Twist>
+                    <x_number_of_panels>13</x_number_of_panels>
+                    <x_panel_distribution>COSINE</x_panel_distribution>
+                    <y_number_of_panels>1</y_number_of_panels>
+                    <y_panel_distribution>COSINE</y_panel_distribution>
+                    <Left_Side_FoilName>NACA 0008</Left_Side_FoilName>
+                    <Right_Side_FoilName>NACA 0008</Right_Side_FoilName>
+                </Section>
+            </Sections>
+        </wing>
+    </Plane>
+</explane>

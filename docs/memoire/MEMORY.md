@@ -1,0 +1,3 @@
+- [Phase 3 : moteur F + APC 8x6EP, MOD validées](phase3-choix-moteur.md) — décisions du 13/10, réserves masse/FC/V1-PL-01, phase 3 commitée (4441587)
+- [Règles de travail drone](phase3-regles-utilisateur.md) — chiffres MATLAB seulement, cahier gelé, MOD en brouillon, arrêts pour décision
+- [Phase 4 : outils, profils, critères go/no-go](phase4-criteres.md) — xflr5 piloté par l'utilisateur, S5010, MOD-04 validée, MOD-05 brouillon ; 15/10 : autorité ≤ 30 km/h à MS 10 %, élevons 35 % depuis 200 mm, vrillage −3,5° (polaires empruntées) ; commit 70eee52 ; T7 option 1 lancé le 16/10 (attente des exports T7)

@@ -549,7 +549,9 @@ p.stab.mode_verdict = "complet";   % modèle d'élevons du verdict (cm_elevons) 
                                    %     annoncée en E4 ("bandes", montrée à côté) la perte de portance du
                                    %     volet mesurée par XFoil (η_α du §10). ÉCART à la procédure, signalé
 % Critères des élevons du 15/10/2026 (utilisateur ; remplacent p.stab.d_trim et p.stab.d_reserve ;
-% hors cahier, donc sans MOD ; V1-STAB-02 inchangée) : deux questions séparées
+% hors cahier, donc sans MOD ; V1-STAB-02 inchangée) : deux questions séparées.
+% 2e décision du 15/10/2026 : fenêtre de croisière SUPPRIMÉE (p.stab.d_crois gardé pour la trace
+% d'elevons_variantes.m) ; autorité redéfinie par p.stab.V_aut_max (verdict_elevons.m)
 p.stab.V_crois    = [40 55]/3.6;   % m/s croisière (40 km/h = p.req.V_end_op, endurance opérationnelle)
 p.stab.d_crois    = [-10 0];       % deg δ_trim en croisière, 3S1P et 4S1P, à chaque MS de p.stab.MS_crois
 p.stab.MS_crois   = [0.08 0.09 0.10]; % -  MS nominale 9 % ; 8 et 10 % : tolérance de centrage
@@ -569,6 +571,45 @@ p.elv.charniere = [0.75 0.70 0.65 0.65];   % x/c
 p.elv.y0        = [0.25 0.25 0.25 0.25 - 0.10*p.geo.b/2];  % m  début des élevons
 p.elv.vr_fig    = -5;              % deg vrillage des figures (milieu de la matrice, choix d'affichage)
 p.elv.CL_fig    = [0.3 1.3 0.02];  % -   [début fin pas] de CL de la figure d'autorité (choix d'affichage)
+% 2e décision du 15/10/2026 (utilisateur ; critères hors cahier, donc sans MOD ; V1-STAB-02 reste à
+% 8–10 %) : verdict_elevons.m
+p.stab.V_aut_max  = 30/3.6;        % m/s autorité : vitesse minimale équilibrée (élevons à au plus
+                                   %     |p.stab.d_autorite| vers le haut) ≤ 30 km/h à MS 10 %, 3S1P et 4S1P
+p.stab.V_lancer   = 35/3.6;        % m/s facteur de charge disponible au lancer : n = (V_lancer/V_min)²
+p.stab.MS_perf    = 0.09;          % -   V1-PERF-03/04/05 recalculées à la MS nominale, traînée équilibrée
+p.stab.MS_regle_vr = [0.08 0.10];  % -   règle de choix du vrillage (annoncée en E4, procedure_etapes_2_3.md) :
+                                   %     moyenne des traînées équilibrées à p.stab.V_choix_vr, 3S1P/4S1P, MS 8/10 %
+p.elv.retenue   = "35 % prolongés"; % variante retenue (élevons de 35 % de corde depuis y = 200 mm)
+p.elv.y0_estim  = 0.15;            % m   estimation demandée : mêmes élevons prolongés jusqu'à y = 150 mm
+p.elv.dCm0      = [0.01 0.02];     % -   estimation demandée : Cm0 visqueux du profil plus élevé (couple pur)
+p.elv.V_polaire = [35 70 1]/3.6;   % m/s [début fin pas] de la polaire équilibrée passée au modèle de la phase 3
+% Traînée hors de l'aile (pour la polaire complète de la phase 4) : estimateur de la phase 3
+% (estimation_cd0_e : Cfe corrigé du Reynolds × surface mouillée / S) appliqué à la nacelle et aux
+% winglets, absents des bandes de l'aile (leur traînée induite est dans la VLM). HYPOTHÈSE
+p.elv.Swet_hors_aile = p.cd0est.Swet_fus + p.cd0est.Swet_wlet;   % m²
+% Manip du 15/10/2026 : profils S5010 à charnière 65 % et leurs polaires XFoil (même lot, sans T2)
+p.elv.charniere_c65 = 0.65;        % x/c
+p.elv.d_volet_c65 = [-3 -6 -9 -12 -15 -20];  % deg  convention xflr5 (< 0 = vers le haut)
+p.elv.nom_c65   = "S5010 c65 elv%d"; % nom des profils dans xflr5 (sprintf avec le braquage)
+p.elv.dat_c65   = "s5010_c65_elv%d.dat"; % export .dat de contrôle (dossier p.xfl.dossier_profils)
+p.elv.dossier_pol_c65 = "xflr5/exports/polaires_volet_c65"; % exports .txt ; s'ils sont complets,
+                                   %     verdict_elevons.m les prend à la place des polaires empruntées
+p.elv.alpha_c65 = [-6 20 0.5];     % deg  [début fin pas] : à −9° (charnière 75 %), le Cl maximal tombe
+                                   %     au dernier α (14°) dès Re 250 000 ; on monte à 20°
+% Clôture de la phase 4 (décision du 15/10/2026, cloture_phase4.m) : géométrie retenue = vrillage
+% de verdict_elevons.m (règle E4), élevons de 35 % (charnière p.elv.charniere_c65) depuis p.elv.y0(end)
+p.clo.d_T2      = [0 -6];          % deg  T2 de contrôle (non visqueux) : δ = 0 (maillage) et profil c65 à −6°
+p.clo.d_T7_cand = [-3 -6 -9 -12];  % deg  profils c65 braqués candidats du T7 (équilibre à profil figé, option T7-3)
+p.clo.V_T7      = [40 55]/3.6;     % m/s l'équilibre de chaque T7 doit tomber dans cette plage (utilisateur)
+p.clo.V_grille  = [30 75 0.5]/3.6; % m/s [début fin pas] de la recherche de la vitesse d'équilibre (choix de calcul)
+p.clo.n_bandes  = 10;             % -    T7 : panneaux d'aile et longeron en 10 bandes par demi-aile (masses_composants),
+p.clo.CL_ctrl   = 0.1:0.1:0.6;   % contrôle T2 de clôture : CL de comparaison xflr5 / modèle "vlm"
+p.clo.dossier_T2 = "xflr5/exports/T2/Cloture"; % exports .txt du T2 de contrôle (sous-dossier de 04_aero_stabilite)
+p.clo.d_T7      = -3;            % deg  T7 (décision du 16/10/2026, option 1) : profil "S5010 c65 elv-3" pour les 4 avions
+p.clo.d_T7_filet = -6;           % deg  T7 de rattrapage (33 à 38 km/h dans xflr5) si un critère sort à moins de la marge
+p.clo.marge_crit = 0.05;         % -    marge de ζ (incidence, roulis hollandais) sous laquelle un T7 de rattrapage est proposé
+p.clo.dossier_T7 = "xflr5/exports/T7"; % exports .txt des T7 (sous-dossier de 04_aero_stabilite)
+                                   %      masse ∝ surface locale (HYPOTHÈSE, celle du centrage) : inerties Ixx, Izz
 
 % Positions des composants, AVANT la CAO de la phase 5 : TOUTES HYPOTHÈSES,
 % à valider par l'utilisateur (arrêt A). Repère : origine au bord d'attaque de
